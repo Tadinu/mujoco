@@ -17,6 +17,7 @@
 
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtype.h>
@@ -43,7 +44,7 @@ namespace mujoco::plugin::sensor {
 //  4. (float) Horizontal field-of-view (fov_x), in degrees.
 //  5. (float) Vertical field-of-view (fov_y), in degrees.
 //  6. (float) Foveal deformation. Defaults to 0.
-class TouchGrid {
+class MJAPI TouchGrid {
  public:
   static TouchGrid* Create(const mjModel* m, mjData* d, int instance);
   TouchGrid(TouchGrid&&) = default;

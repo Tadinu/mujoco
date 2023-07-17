@@ -32,9 +32,9 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iostream>
 
-#include <mujoco/mjspec.h>
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 #ifdef MUJOCO_TINYOBJLOADER_IMPL
   #define TINYOBJLOADER_IMPLEMENTATION
@@ -59,14 +59,14 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjtype.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_cache.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_crossplatform.h"  // IWYU pragma: keep
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_errmem.h"
-#include "user/user_cache.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
 #include "user/user_resource.h"
-#include "user/user_util.h"
 
 extern "C" {
 #include "qhull_ra.h"
@@ -666,6 +666,7 @@ void mjCMesh::TryCompile(const mjVFS* vfs) {
   mjCCache* cache = reinterpret_cast<mjCCache*>(mj_getCache()->impl_);
 
   Clock::time_point t0 = Clock::now();
+  std::cout << "Compile mesh " << name << " userverts num " << spec_vert_.size() << std::endl;
 
   // load file
   if (!file_.empty()) {
@@ -702,6 +703,7 @@ void mjCMesh::TryCompile(const mjVFS* vfs) {
       LoadFromResource(resource_);
 
       // check repeated mesh data
+  //else: [uservert, user_face] could have been filled already, dynamically from an external geom processor
       if (!normal_.empty() && !spec_normal_.empty()) {
         throw mjCError(this, "repeated normal specification");
       } else if (normal_.empty()) {
@@ -812,6 +814,9 @@ bool mjCMesh::HasTexcoord() const {
   return !texcoord_.empty();
 }
 
+bool mjCMesh::HasFaceTexcoord() const {
+  return !facetexcoord_.empty();
+}
 
 void mjCMesh::CopyVert(float* arr) const {
   std::copy(vert_.begin(), vert_.end(), arr);

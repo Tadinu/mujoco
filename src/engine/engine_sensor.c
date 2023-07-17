@@ -21,13 +21,13 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_collision_sdf.h"
 #include "engine/engine_core_smooth.h"
 #include "engine/engine_core_util.h"
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_memory.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_ray.h"
 #include "engine/engine_sleep.h"
 #include "engine/engine_sort.h"

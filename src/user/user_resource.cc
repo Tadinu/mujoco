@@ -26,9 +26,9 @@
 #include <mujoco/mujoco.h>
 
 #include <mujoco/mjplugin.h>
-#include "engine/engine_plugin.h"
-#include "user/user_util.h"
-#include "user/user_vfs.h"
+#include <mujoco/engine/engine_plugin.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_vfs.h>
 
 static mjResource* openResourceInternal(
     const char* dir, const char* name, const mjVFS* vfs, char* error, size_t nerror) {

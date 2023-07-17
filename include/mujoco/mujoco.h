@@ -40,7 +40,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 // user memory handlers
 MJAPI extern void* (*mju_user_malloc)(size_t);
 MJAPI extern void  (*mju_user_free)(void*);
@@ -59,7 +58,6 @@ MJAPI extern mjfTime     mjcb_time;
 MJAPI extern mjfAct      mjcb_act_dyn;
 MJAPI extern mjfAct      mjcb_act_gain;
 MJAPI extern mjfAct      mjcb_act_bias;
-
 
 // collision function table
 MJAPI extern mjfCollision mjCOLLISIONFUNC[mjNGEOMTYPES][mjNGEOMTYPES];
@@ -166,6 +164,8 @@ MJAPI int mj_recompile(mjSpec* s, const mjVFS* vfs, mjModel* m, mjData* d);
 // If error is not NULL, it must have size error_sz.
 // Nullable: error
 MJAPI int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int error_sz);
+// NOTE: cannot include user_model.h for mjCModel here in mujoco.h
+MJAPI int mj_saveUserModelXML(const char* filename, const mjModel* m, const void* user_model, char* error, int error_sz);
 
 // Free last XML model if loaded. Called internally at each load.
 MJAPI void mj_freeLastXML(void);

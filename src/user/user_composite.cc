@@ -12,24 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_composite.h"
+#include <mujoco/user/user_composite.h>
 
 #include <cmath>
 #include <cstring>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjspec.h>
 #include <mujoco/mjtype.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
 #include "cc/array_safety.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
 #include "user/user_api.h"
-#include "user/user_util.h"
 
 namespace {
 
@@ -229,6 +230,9 @@ bool mjCComposite::Make(mjSpec* spec, mjsBody* body, char* error, int error_sz) 
 }
 
 
+      //g->_mass = 0.1;
+      //g->margin = g->gap = 1;
+          //std::cout << "skip joints creation for geom at pin[ip]:" << ":" << ix << "[ip+1]:" << iy << "ip=" << ip << std::endl;
 bool mjCComposite::MakeCable(mjCModel* model, mjsBody* body, char* error, int error_sz) {
   // check dim
   if (dim != 1) { return comperr(error, "Cable must be one-dimensional", error_sz); }
@@ -430,8 +434,6 @@ mjsBody* mjCComposite::AddCableBody(
 
   return body;
 }
-
-
 // copy local vectors to skin
 void mjCComposite::CopyIntoSkin(mjsSkin* skin) {
   mjs_setInt(skin->face, face.data(), face.size());

@@ -23,8 +23,8 @@
 #include <mujoco/mjspec.h>
 #include <mujoco/mjtype.h>
 #include <mujoco/mujoco.h>
-#include "user/user_api.h"
-#include "user/user_util.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_util.h>
 #include "xml/xml_native_reader.h"
 #include "xml/xml_urdf.h"
 #include "xml/xml_util.h"

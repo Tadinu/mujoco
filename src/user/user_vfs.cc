@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_vfs.h"
+#include <mujoco/user/user_vfs.h>
 
 #include <sys/stat.h>
 #if defined(_WIN32) && !defined(__MINGW32__)
@@ -34,10 +34,10 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <mujoco/user/user_util.h>
 
 #include <mujoco/mujoco.h>
 #include "engine/engine_util_misc.h"
-#include "user/user_util.h"
 
 namespace {
 

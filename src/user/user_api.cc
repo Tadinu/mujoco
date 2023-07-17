@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 #include <algorithm>
 #include <cctype>
@@ -34,15 +34,15 @@
 #include <mujoco/mjspecmacro.h>
 #include <mujoco/mjxmacro.h>
 #include <mujoco/mujoco.h>
-#include "engine/engine_support.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_cache.h>
 #include "engine/engine_util_errmem.h"
-#include "user/user_cache.h"
 #include "user/user_flexcomp.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
 #include "user/user_resolver.h"
 #include "user/user_resource.h"
 #include "user/user_util.h"
+#include "engine/engine_support.h"
 
 namespace {
 

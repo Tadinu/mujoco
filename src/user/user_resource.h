@@ -21,6 +21,7 @@
 
 #include <mujoco/mjexport.h>
 #include <mujoco/mujoco.h>
+#include <mujoco/engine/engine_plugin.h>
 
 #ifdef __cplusplus
 extern "C" {
