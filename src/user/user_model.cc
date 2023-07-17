@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_model.h"
+#include <mujoco/user/user_model.h>
 
 #include <algorithm>
 #include <csetjmp>
@@ -27,18 +27,18 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjvisualize.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "cc/array_safety.h"
 #include "engine/engine_forward.h"
 #include "engine/engine_io.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_setconst.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 
 namespace {
 namespace mju = ::mujoco::util;
@@ -624,7 +624,8 @@ static T* findobject(string name, vector<T*>& list) {
 }
 
 // find object in global lists given string type and name
-mjCBase* mjCModel::FindObject(mjtObj type, string name) {
+mjCBase *mjCModel::FindObject(mjtObj type, std::string name)
+{
   switch (type) {
   case mjOBJ_BODY:
   case mjOBJ_XBODY:

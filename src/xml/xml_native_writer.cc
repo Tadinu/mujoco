@@ -24,12 +24,12 @@
 
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_io.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 #include "xml/xml_util.h"
 #include "tinyxml2.h"
 

@@ -21,12 +21,12 @@
 #endif
 
 #include <string>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_util.h>
 
 #include "cc/array_safety.h"
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_resource.h"
-#include "user/user_model.h"
-#include "user/user_util.h"
 #include "xml/xml_native_reader.h"
 #include "xml/xml_native_writer.h"
 #include "xml/xml_urdf.h"

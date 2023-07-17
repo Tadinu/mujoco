@@ -20,10 +20,10 @@
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_core_constraint.h"
 #include "engine/engine_crossplatform.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"

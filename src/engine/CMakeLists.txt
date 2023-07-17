@@ -43,7 +43,6 @@ set(MUJOCO_ENGINE_SRCS
     engine_passive.c
     engine_passive.h
     engine_plugin.cc
-    engine_plugin.h
     engine_print.c
     engine_print.h
     engine_ray.c
@@ -72,7 +71,6 @@ set(MUJOCO_ENGINE_SRCS
     engine_util_spatial.c
     engine_util_spatial.h
     engine_vfs.c
-    engine_vfs.h
     engine_vis_init.c
     engine_vis_init.h
     engine_vis_interact.c

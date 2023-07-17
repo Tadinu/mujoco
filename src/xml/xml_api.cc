@@ -20,9 +20,10 @@
 #include <mutex>
 #include <random>
 
+#include <mujoco/user/user_model.h>
+#include <mujoco/engine/engine_vfs.h>
+
 #include "engine/engine_resource.h"
-#include "engine/engine_vfs.h"
-#include "user/user_model.h"
 #include "xml/xml.h"
 #include "xml/xml_native_reader.h"
 #include "xml/xml_util.h"
