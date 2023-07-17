@@ -17,7 +17,7 @@
 
 #include <sstream>
 
-#include "user/user_model.h"
+#include <mujoco/user/user_model.h>
 #include "xml/xml_base.h"
 #include "tinyxml2.h"
 

@@ -25,15 +25,13 @@
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjxmacro.h>
-#include "engine/engine_array_safety.h"  // IWYU pragma: keep
-#include "engine/engine_crossplatform.h"  // IWYU pragma: keep
+#include <mujoco/engine/engine_vfs.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_resource.h"
 #include "engine/engine_macro.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "engine/engine_vfs.h"
 
 #ifdef MEMORY_SANITIZER
   #include <sanitizer/msan_interface.h>

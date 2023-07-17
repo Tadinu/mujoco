@@ -19,9 +19,10 @@
 #include <unordered_map>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjmodel.h>
-#include "user/user_model.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
 
 typedef enum _mjtCompType {
   mjCOMPTYPE_PARTICLE = 0,
@@ -60,7 +61,7 @@ typedef enum _mjtCompShape {
 } mjtCompShape;
 
 
-class mjCComposite {
+class MJAPI mjCComposite {
  public:
   mjCComposite(void);
 

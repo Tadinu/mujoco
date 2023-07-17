@@ -44,7 +44,6 @@ extern "C" {
 #include <mujoco/mjui.h>
 #include <mujoco/mjvisualize.h>
 
-
 // user error and memory handlers
 MJAPI extern void  (*mju_user_error)(const char*);
 MJAPI extern void  (*mju_user_warning)(const char*);

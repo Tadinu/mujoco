@@ -18,7 +18,7 @@
 // entire file can in principle be re-implemented in C if necessary, without breaking any external
 // or internal MuJoCo code elsewhere.
 
-#include "engine/engine_plugin.h"
+#include <mujoco/engine/engine_plugin.h>
 
 #include <atomic>
 #include <cctype>

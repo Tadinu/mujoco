@@ -21,7 +21,7 @@
 
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
-#include "engine/engine_plugin.h"
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_util_errmem.h"
 
 // file buffer used internally for the OS filesystem

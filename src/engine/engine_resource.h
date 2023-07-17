@@ -16,7 +16,7 @@
 #define MUJOCO_SRC_ENGINE_ENGINE_RESOURCE_H_
 
 #include <mujoco/mjexport.h>
-#include "engine/engine_plugin.h"
+#include <mujoco/engine/engine_plugin.h>
 
 #ifdef __cplusplus
 extern "C" {

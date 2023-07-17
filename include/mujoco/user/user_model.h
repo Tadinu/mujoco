@@ -19,10 +19,11 @@
 #include <utility>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 
 typedef enum _mjtInertiaFromGeom {
   mjINERTIAFROMGEOM_FALSE = 0,    // do not use; inertial element required
@@ -40,7 +41,7 @@ typedef enum _mjtInertiaFromGeom {
 // constructed, 'Compile' can be called to generate the corresponding mjModel object
 // (which is the low-level model).  The mjCModel object can then be deleted.
 
-class mjCModel {
+class MJAPI mjCModel {
   friend class mjCBody;
   friend class mjCJoint;
   friend class mjCGeom;

@@ -21,6 +21,7 @@
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_collision_driver.h"
 #include "engine/engine_core_constraint.h"
@@ -31,7 +32,6 @@
 #include "engine/engine_io.h"
 #include "engine/engine_macro.h"
 #include "engine/engine_passive.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_sensor.h"
 #include "engine/engine_solver.h"
 #include "engine/engine_support.h"

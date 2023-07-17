@@ -21,8 +21,8 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjvisualize.h>
 #include <mujoco/mjxmacro.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_core_constraint.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_vis_init.h"

@@ -77,10 +77,10 @@ MJAPI void mj_loadAllPluginLibraries(const char* directory, mjfPluginLibraryLoad
 MJAPI int mjp_registerResourceProviderInternal(const mjpResourceProvider* provider);
 
 // look up a plugin by name, assuming that mjp_pluginCount has already been called
-const mjpPlugin* mjp_getPluginUnsafe(const char* name, int* slot, int nslot);
+MJAPI const mjpPlugin* mjp_getPluginUnsafe(const char* name, int* slot, int nslot);
 
 // look up a plugin by slot number, assuming that mjp_pluginCount has already been called
-const mjpPlugin* mjp_getPluginAtSlotUnsafe(int slot, int nslot);
+MJAPI const mjpPlugin* mjp_getPluginAtSlotUnsafe(int slot, int nslot);
 
 #ifdef __cplusplus
 }

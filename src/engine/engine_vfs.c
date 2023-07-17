@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "engine/engine_vfs.h"
+#include <mujoco/engine/engine_vfs.h>
 
 #include <string.h>
+#include <mujoco/engine/engine_plugin.h>
 
 #include "engine/engine_array_safety.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
