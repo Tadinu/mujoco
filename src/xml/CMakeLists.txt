@@ -20,7 +20,6 @@ set(MUJOCO_XML_SRCS
     xml_global.cc
     xml_global.h
     xml.cc
-    xml.h
     xml_native_reader.cc
     xml_native_reader.h
     xml_numeric_format.cc

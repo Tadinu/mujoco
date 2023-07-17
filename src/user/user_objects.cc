@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 
 #include <algorithm>
 #include <array>
@@ -37,17 +37,20 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include "lodepng.h"  // NOLINT
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_cache.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_vfs.h>
+#include <mujoco/engine/engine_plugin.h>
 #include <mujoco/mjspec.h>
 #include <mujoco/mujoco.h>
 #include "cc/array_safety.h"
 #include "engine/engine_passive.h"
-#include "user/user_api.h"
-#include "user/user_cache.h"
-#include "user/user_model.h"
 #include "user/user_resource.h"
-#include "user/user_util.h"
 
 namespace {
 namespace mju = ::mujoco::util;

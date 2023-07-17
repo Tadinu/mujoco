@@ -17,10 +17,9 @@
 #include <mujoco/mjtype.h>
 #include <mujoco/mjvisualize.h>
 #include <mujoco/mjspec.h>
+#include <mujoco/user/user_api.h>
 #include "engine/engine_init.h"
 #include "engine/engine_io.h"
-#include "user/user_api.h"
-
 
 // default model attributes
 void mjs_defaultSpec(mjSpec* spec) {

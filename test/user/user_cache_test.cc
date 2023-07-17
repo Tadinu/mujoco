@@ -23,7 +23,7 @@
 #include <gtest/gtest.h>
 #include <mujoco/mujoco.h>
 #include "test/fixture.h"
-#include "src/user/user_cache.h"
+#include <mujoco/user/user_cache.h>
 #include "src/user/user_vfs.h"
 #include "src/user/user_resource.h"
 
