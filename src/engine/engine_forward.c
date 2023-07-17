@@ -22,6 +22,7 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
 #include <mujoco/mjplugin.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_collision_driver.h"
 #include "engine/engine_core_constraint.h"
@@ -32,7 +33,6 @@
 #include "engine/engine_io.h"
 #include "engine/engine_macro.h"
 #include "engine/engine_passive.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_sensor.h"
 #include "engine/engine_solver.h"
 #include "engine/engine_support.h"
@@ -1107,11 +1107,16 @@ void mj_forward(const mjModel* m, mjData* d) {
   mj_forwardSkip(m, d, mjSTAGE_NONE, 0);
 }
 
-
-
+#include <time.h>
 // advance simulation using control callback
 void mj_step(const mjModel* m, mjData* d) {
   TM_START;
+#if 0 // MJSTEP
+  static double last = 0.f;
+  const double now = clock();
+  printf("step %f %f\n", (now - last)/CLOCKS_PER_SEC, m->opt.timestep);
+  last = now;
+#endif
 
   // common to all integrators
   mj_checkPos(m, d);
@@ -1143,6 +1148,34 @@ void mj_step(const mjModel* m, mjData* d) {
     mjERROR("invalid integrator");
   }
 
+#if 0
+  for (int i = 0; i < m->nbody; ++i)
+  {
+      if(i<5)
+      {
+        const char* bodyName = mj_id2name(m, mjOBJ_XBODY, i);
+        printf("%s %lf %lf %lf\n", bodyName, d->xpos[3 * i], d->xpos[3 * i + 1], d->xpos[3 * i + 2]);
+      }
+      else
+      {
+        break;
+      }
+  }
+
+  // NOTE: geom_xpos, geom_xmat are global while body's xpos, xquat is only local in parent body frame
+  for (int i = 0; i < m->ngeom; ++i)
+  {
+      if(i<5)
+      {
+        const char* geomName = mj_id2name(m, mjOBJ_GEOM, i);
+        printf("%s %lf %lf %lf\n", geomName, d->geom_xpos[3 * i], d->geom_xpos[3 * i + 1], d->geom_xpos[3 * i + 2]);
+      }
+      else
+      {
+        break;
+      }
+  }
+#endif
   TM_END(mjTIMER_STEP);
 }
 

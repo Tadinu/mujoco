@@ -24,12 +24,13 @@
 #include <utility>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjtnum.h>
 #include <mujoco/mjspec.h>
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 
 typedef std::map<std::string, int, std::less<> > mjKeyMap;
 typedef std::array<mjKeyMap, mjNOBJECT> mjListKeyMap;
@@ -45,7 +46,7 @@ typedef struct mjKeyInfo_ {
   bool mquat;
 } mjKeyInfo;
 
-class mjCModel_ : public mjsElement {
+class MJAPI mjCModel_ : public mjsElement {
  public:
   // attach namespaces
   std::string prefix;
@@ -152,7 +153,7 @@ class mjCModel_ : public mjsElement {
 // by loading an XML file via mjCXML.  Once an mjCModel object is
 // constructed, 'Compile' can be called to generate the corresponding mjModel object
 // (which is the low-level model).  The mjCModel object can then be deleted.
-class mjCModel : public mjCModel_, private mjSpec {
+class MJAPI mjCModel : public mjCModel_, public mjSpec {
   friend class mjCBase;
   friend class mjCBody;
   friend class mjCCamera;
@@ -279,6 +280,7 @@ class mjCModel : public mjCModel_, private mjSpec {
                      const std::string& plugin_instance_name,
                      mjCPlugin** plugin_instance);
 
+ public:
   // clear objects allocated by Compile
   void Clear();
 
@@ -289,6 +291,7 @@ class mjCModel : public mjCModel_, private mjSpec {
   template <class T> void DeleteMaterial(std::vector<T*>& list,
                                          std::string_view name = "");
 
+ public:
   // save the current state
   template <class T>
   void SaveState(const std::string& state_name, const T* qpos, const T* qvel, const T* act,
@@ -314,7 +317,6 @@ class mjCModel : public mjCModel_, private mjSpec {
   // set deepcopy flag
   void SetDeepCopy(bool deepcopy) { deepcopy_ = deepcopy; }
 
- private:
   // settings for each defaults class
   std::vector<mjCDef*> defaults_;
 

@@ -27,7 +27,7 @@
 #include "tinyxml2.h"
 
 #include <mujoco/mujoco.h>
-#include "user/user_util.h"
+#include <mujoco/user/user_util.h>
 
 // error string copy
 void mjCopyError(char* dst, const char* src, int maxlen);

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_cache.h"
+#include <mujoco/user/user_cache.h>
 
 #include <cstdlib>
 #include <cstring>

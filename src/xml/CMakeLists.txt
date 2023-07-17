@@ -18,7 +18,6 @@ set(MUJOCO_XML_SRCS
     xml_base.cc
     xml_base.h
     xml.cc
-    xml.h
     xml_native_reader.cc
     xml_native_reader.h
     xml_numeric_format.cc

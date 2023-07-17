@@ -32,6 +32,8 @@ MJAPI mjModel* mj_loadXML(const char* filename, const mjVFS* vfs, char* error, i
 
 // update XML data structures with info from low-level model, save as MJCF
 MJAPI int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int error_sz);
+// NOTE: cannot include user_model.h for mjCModel in mujoco.h
+MJAPI int mj_saveUserModelXML(const char* filename, const mjModel* m, const void* user_model, char* error, int error_sz);
 
 // free last XML model if loaded; called internally at each load
 MJAPI void mj_freeLastXML(void);

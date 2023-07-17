@@ -15,7 +15,7 @@
 // Tests for plugin-related functionalities.
 // TODO(b/247110452) add more comments to this file, or add sample plugins
 
-#include "src/engine/engine_plugin.h"
+#include <mujoco/engine/engine_plugin.h>
 
 #include <array>
 #include <cstdint>

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "xml/xml.h"
+#include <mujoco/xml/xml.h>
 
 #include <locale.h>
 #include <cstring>
@@ -26,18 +26,20 @@
 #include <string>
 #include <string_view>
 #include <unordered_set>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_vfs.h>
 
 #include "tinyxml2.h"
 
 #include <mujoco/mujoco.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/mjspec.h>
 #include "cc/array_safety.h"
 #include "engine/engine_crossplatform.h"
-#include <mujoco/mjspec.h>
 #include "user/user_resource.h"
-#include "user/user_util.h"
-#include "user/user_vfs.h"
 #include "xml/xml_native_reader.h"
 #include "xml/xml_native_writer.h"
 #include "xml/xml_urdf.h"

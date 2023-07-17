@@ -27,9 +27,9 @@
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
 #include <mujoco/mjxmacro.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_macro.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"

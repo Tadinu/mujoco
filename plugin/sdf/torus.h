@@ -17,6 +17,7 @@
 
 #include <optional>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -24,13 +25,13 @@
 
 namespace mujoco::plugin::sdf {
 
-struct TorusAttribute {
+struct MJAPI TorusAttribute {
   static constexpr int nattribute = 2;
   static constexpr char const* names[nattribute] = {"radius1", "radius2"};
   static constexpr mjtNum defaults[nattribute] = { .35, .15 };
 };
 
-class Torus {
+class MJAPI Torus {
  public:
   // Creates a new Torus instance or returns null on failure.
   static std::optional<Torus> Create(const mjModel* m, mjData* d, int instance);

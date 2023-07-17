@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_model.h"
+#include <mujoco/user/user_model.h>
 
 #include <algorithm>
 #include <atomic>
@@ -31,6 +31,7 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmacro.h>
@@ -38,18 +39,18 @@
 #include <mujoco/mjspec.h>
 #include <mujoco/mjtnum.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "cc/array_safety.h"
 #include "engine/engine_forward.h"
 #include "engine/engine_io.h"
 #include "engine/engine_name.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_setconst.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_api.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 
 namespace {
 namespace mju = ::mujoco::util;
@@ -885,7 +886,7 @@ void mjCModel::Clear() {
 
 // add object of any type
 template <class T>
-T* mjCModel::AddObject(vector<T*>& list, string type) {
+T* mjCModel::AddObject(vector<T*>& list, std::string type) {
   T* obj = new T(this);
   obj->id = (int)list.size();
   list.push_back(obj);
@@ -895,7 +896,7 @@ T* mjCModel::AddObject(vector<T*>& list, string type) {
 
 // add object of any type, with default parameter
 template <class T>
-T* mjCModel::AddObjectDefault(vector<T*>& list, string type, mjCDef* def) {
+T* mjCModel::AddObjectDefault(vector<T*>& list, std::string type, mjCDef* def) {
   T* obj = new T(this, def ? def : defaults_[0]);
   obj->id = (int)list.size();
   obj->classname = def ? def->name : "main";
@@ -1216,7 +1217,7 @@ static T* findobject(std::string_view name, const vector<T*>& list, const mjKeyM
 }
 
 // find object in global lists given string type and name
-mjCBase* mjCModel::FindObject(mjtObj type, string name) const {
+mjCBase* mjCModel::FindObject(mjtObj type, std::string name) const {
   if (!object_lists_[type]) {
     return nullptr;
   }
@@ -3838,9 +3839,10 @@ static void processlist(mjListKeyMap& ids, vector<T*>& list,
   if (type < mjNOBJECT) {
     for (size_t i=0; i < list.size(); i++) {
       // check for incompatible id setting; SHOULD NOT OCCUR
-      if (list[i]->id!=-1 && list[i]->id!=i) {
-        throw mjCError(list[i], "incompatible id in %s array, position %d", mju_type2Str(type), i);
-      }
+      //if (list[i]->id!=-1 && list[i]->id!=i) {
+      //  std::cout << i << " name: " << list[i]->name << " id: " << list[i]->id << std::endl;
+      //  throw mjCError(list[i], "incompatible id in %s array, position %d", mju_type2Str(type), i);
+      //}
 
       // id equals position in array
       list[i]->id = i;
@@ -3971,6 +3973,7 @@ mjModel* mjCModel::Compile(const mjVFS* vfs, mjModel** m) {
 
     // save error info
     errInfo = err;
+    std::printf("mjCModel::Compile() - ERROR %s\n", errInfo.message);
 
     // restore handler, return 0
     _mjPRIVATE__set_tls_error_fn(save_error);

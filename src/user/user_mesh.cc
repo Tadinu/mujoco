@@ -27,9 +27,9 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iostream>
 
-#include <mujoco/mjspec.h>
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 #ifdef MUJOCO_TINYOBJLOADER_IMPL
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -54,14 +54,14 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjtnum.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_cache.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_crossplatform.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_errmem.h"
-#include "user/user_cache.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
 #include "user/user_resource.h"
-#include "user/user_util.h"
 
 extern "C" {
 #include "qhull_ra.h"
@@ -406,6 +406,7 @@ void mjCMesh::Compile(const mjVFS* vfs) {
   mjResource* resource = nullptr;
   mjCCache *cache = reinterpret_cast<mjCCache*>(mj_globalCache());
 
+  std::cout << "Compile mesh " << name << " userverts num " << spec_vert_.size() << std::endl;
   // load file
   if (!file_.empty()) {
     vert_.clear();
@@ -466,6 +467,7 @@ void mjCMesh::Compile(const mjVFS* vfs) {
 
     // check repeated mesh data
     if (!vert_.empty() && !spec_vert_.empty()) {
+  //else: [uservert, user_face] could have been filled already, dynamically from an external geom processor
       throw mjCError(this, "repeated vertex specification");
     } else if (vert_.empty()) {
       vert_ = spec_vert_;
@@ -663,6 +665,9 @@ bool mjCMesh::HasTexcoord() const {
   return !texcoord_.empty();
 }
 
+bool mjCMesh::HasFaceTexcoord() const {
+  return !facetexcoord_.empty();
+}
 
 
 void mjCMesh::CopyVert(float* arr) const {
@@ -1084,9 +1089,9 @@ void mjCMesh::LoadSTL(mjResource* resource) {
   // get number of triangles, check bounds
   int nfaces = 0;
   ReadFromBuffer(&nfaces, buffer + 80);
-  if (nfaces<1 || nfaces>200000) {
+  if (nfaces<1 || nfaces>1000000) {
     throw mjCError(this,
-                   "number of faces should be between 1 and 200000 in STL file '%s';"
+                   "number of faces should be between 1 and 1000000 in STL file '%s';"
                    " perhaps this is an ASCII file?", resource->name);
   }
 

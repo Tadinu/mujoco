@@ -21,146 +21,147 @@
 #include <string>
 #include <string_view>
 #include <vector>
+#include <mujoco/mjexport.h>
 
 const double mjEPS = 1E-14;     // minimum value in various calculations
 const double mjMINMASS = 1E-6;  // minimum mass allowed
 
 // check if numeric variable is defined:  !_isnan(num)
-bool mjuu_defined(double num);
+MJAPI bool mjuu_defined(double num);
 
 // compute linear address of M[g1][g2] where M is triangular n-by-n
 // return -1 if inputs are invalid
-int mjuu_matadr(int g1, int g2, int n);
+MJAPI int mjuu_matadr(int g1, int g2, int n);
 
 // set 4D vector
-void mjuu_setvec(double* dest, double x, double y, double z, double w);
-void mjuu_setvec(float* dest, double x, double y, double z, double w);
+MJAPI void mjuu_setvec(double* dest, double x, double y, double z, double w);
+MJAPI void mjuu_setvec(float* dest, double x, double y, double z, double w);
 
 // set 3D vector
-void mjuu_setvec(double* dest, double x, double y, double z);
-void mjuu_setvec(float* dest, double x, double y, double z);
+MJAPI void mjuu_setvec(double* dest, double x, double y, double z);
+MJAPI void mjuu_setvec(float* dest, double x, double y, double z);
 
 // set 2D vector
-void mjuu_setvec(double* dest, double x, double y);
+MJAPI void mjuu_setvec(double* dest, double x, double y);
 
 // copy real-valued vector
 template <class T1, class T2>
-void mjuu_copyvec(T1* dest, const T2* src, int n) {
+MJAPI void mjuu_copyvec(T1* dest, const T2* src, int n) {
   for (int i=0; i<n; i++) {
     dest[i] = (T1)src[i];
   }
 }
 
 // add to double array
-void mjuu_addtovec(double* dest, const double* src, int n);
+MJAPI void mjuu_addtovec(double* dest, const double* src, int n);
 
 // zero array
-void mjuu_zerovec(double* dest, int n);
+MJAPI void mjuu_zerovec(double* dest, int n);
 
 // zero float array
-void mjuu_zerovec(float* dest, int n);
+MJAPI void mjuu_zerovec(float* dest, int n);
 
 // dot-product in 3D
-double mjuu_dot3(const double* a, const double* b);
+MJAPI double mjuu_dot3(const double* a, const double* b);
 
 // distance between 3D points
-double mjuu_dist3(const double* a, const double* b);
+MJAPI double mjuu_dist3(const double* a, const double* b);
 
 // L1 norm between vectors
-double mjuu_L1(const double* a, const double* b, int n);
+MJAPI double mjuu_L1(const double* a, const double* b, int n);
 
 // normalize vector to unit length, return previous length
 //  if norm(vec)<mjEPS, return 0 and do not change vector
-double mjuu_normvec(double* vec, int n);
-float mjuu_normvec(float* vec, int n);
+MJAPI double mjuu_normvec(double* vec, int n);
+MJAPI float mjuu_normvec(float* vec, int n);
 
 // convert quaternion to rotation matrix
-void mjuu_quat2mat(double* res, const double* quat);
+MJAPI void mjuu_quat2mat(double* res, const double* quat);
 
 // multiply two unit quaternions
-void mjuu_mulquat(double* res, const double* qa, const double* qb);
+MJAPI void mjuu_mulquat(double* res, const double* qa, const double* qb);
 
 // multiply matrix by vector, 3-by-3
-void mjuu_mulvecmat(double* res, const double* vec, const double* mat);
+MJAPI void mjuu_mulvecmat(double* res, const double* vec, const double* mat);
 
 // multiply transposed matrix by vector, 3-by-3
-void mjuu_mulvecmatT(double* res, const double* vec, const double* mat);
+MJAPI void mjuu_mulvecmatT(double* res, const double* vec, const double* mat);
 
 // compute res = R * M * R'
-void mjuu_mulRMRT(double* res, const double* R, const double* M);
+MJAPI void mjuu_mulRMRT(double* res, const double* R, const double* M);
 
 // compute res = A * B, all 3-by-3
-void mjuu_mulmat(double* res, const double* A, const double* B);
+MJAPI void mjuu_mulmat(double* res, const double* A, const double* B);
 
 // transpose 3-by-3 matrix
-void mjuu_transposemat(double* res, const double* mat);
+MJAPI void mjuu_transposemat(double* res, const double* mat);
 
 // convert global to local axis relative to given frame
-void mjuu_localaxis(double* al, const double* ag, const double* quat);
+MJAPI void mjuu_localaxis(double* al, const double* ag, const double* quat);
 
 // convert global to local position relative to given frame
-void mjuu_localpos(double* pl, const double* pg, const double* pos, const double* quat);
+MJAPI void mjuu_localpos(double* pl, const double* pg, const double* pos, const double* quat);
 
 // compute quaternion rotation from parent to child
-void mjuu_localquat(double* local, const double* child, const double* parent);
+MJAPI void mjuu_localquat(double* local, const double* child, const double* parent);
 
 // compute vector cross-product a = b x c
-void mjuu_crossvec(double* a, const double* b, const double* c);
+MJAPI void mjuu_crossvec(double* a, const double* b, const double* c);
 
 // compute normal vector to given triangle (uses float for OpenGL)
-double mjuu_makenormal(double* normal, const float* a, const float* b, const float* c);
+MJAPI double mjuu_makenormal(double* normal, const float* a, const float* b, const float* c);
 
 // compute quaternion corresponding to minimal rotation from [0;0;1] to vec
-void mjuu_z2quat(double* quat, const double* vec);
+MJAPI void mjuu_z2quat(double* quat, const double* vec);
 
 // compute quaternion corresponding to given rotation matrix (i.e. frame)
-void mjuu_frame2quat(double* quat, const double* x, const double* y, const double* z);
+MJAPI void mjuu_frame2quat(double* quat, const double* x, const double* y, const double* z);
 
 // invert frame transformation
-void mjuu_frameinvert(double newpos[3], double newquat[4],
+MJAPI void mjuu_frameinvert(double newpos[3], double newquat[4],
                       const double oldpos[3], const double oldquat[4]);
 
 // accumulate frame transformation into parent frame
-void mjuu_frameaccum(double pos[3], double quat[4],
+MJAPI void mjuu_frameaccum(double pos[3], double quat[4],
                      const double childpos[3], const double childquat[4]);
 
 // accumulate frame transformation into child frame
-void mjuu_frameaccumChild(const double pos[3], const double quat[4],
+MJAPI void mjuu_frameaccumChild(const double pos[3], const double quat[4],
                           double childpos[3], double childquat[4]);
 
 // invert frame accumulation
-void mjuu_frameaccuminv(double pos[3], double quat[4],
+MJAPI void mjuu_frameaccuminv(double pos[3], double quat[4],
                         const double childpos[3], const double childquat[4]);
 
 // convert local_inertia[3] to global_inertia[6]
-void mjuu_globalinertia(double* global, const double* local, const double* quat);
+MJAPI void mjuu_globalinertia(double* global, const double* local, const double* quat);
 
 // compute off-center correction to inertia matrix
-void mjuu_offcenter(double* res, double mass, const double* vec);
+MJAPI void mjuu_offcenter(double* res, double mass, const double* vec);
 
 // compute viscosity coefficients from mass and inertia
-void mjuu_visccoef(double* visccoef, double mass, const double* inertia, double scl=1);
+MJAPI void mjuu_visccoef(double* visccoef, double mass, const double* inertia, double scl=1);
 
 // rotate vector by quaternion
-void mjuu_rotVecQuat(double res[3], const double vec[3], const double quat[4]);
+MJAPI void mjuu_rotVecQuat(double res[3], const double vec[3], const double quat[4]);
 
 // update moving frame along a discrete curve or initialize it, returns edge length
-double mjuu_updateFrame(double quat[4], double normal[3], const double edge[3],
+MJAPI double mjuu_updateFrame(double quat[4], double normal[3], const double edge[3],
                        const double tprv[3], const double tnxt[3], int first);
 
 // eigenvalue decomposition of symmetric 3x3 matrix
-int mjuu_eig3(double eigval[3], double eigvec[9], double quat[4], const double mat[9]);
+MJAPI int mjuu_eig3(double eigval[3], double eigvec[9], double quat[4], const double mat[9]);
 
 // transform vector by pose
-void mjuu_trnVecPose(double res[3], const double pos[3], const double quat[4], const double vec[3]);
+MJAPI void mjuu_trnVecPose(double res[3], const double pos[3], const double quat[4], const double vec[3]);
 
 // compute frame quat and diagonal inertia from full inertia matrix, return error if any
-const char* mjuu_fullInertia(double quat[4], double inertia[3], const double fullinertia[6]);
+MJAPI const char* mjuu_fullInertia(double quat[4], double inertia[3], const double fullinertia[6]);
 
 namespace mujoco::user {
 
 // utility class for handling file paths
-class FilePath {
+class MJAPI FilePath {
  public:
   FilePath() = default;
   explicit FilePath(const std::string& str) : path_(PathReduce(str)) {}
@@ -233,44 +234,44 @@ class FilePath {
 };
 
 // read file into memory buffer
-std::vector<uint8_t> FileToMemory(const char* filename);
+MJAPI std::vector<uint8_t> FileToMemory(const char* filename);
 
 // convert vector to string separating elements by whitespace
-template<typename T> std::string VectorToString(const std::vector<T>& v);
+template<typename T> MJAPI std::string VectorToString(const std::vector<T>& v);
 
 // convert string to vector
-template<typename T> std::vector<T> StringToVector(char *cs);
-template<typename T> std::vector<T> StringToVector(const std::string& s);
+template<typename T> MJAPI std::vector<T> StringToVector(char *cs);
+template<typename T> MJAPI std::vector<T> StringToVector(const std::string& s);
 
 }  // namespace mujoco::user
 
 // strip path from filename
-std::string mjuu_strippath(std::string filename);
+MJAPI std::string mjuu_strippath(std::string filename);
 
 // strip extension from filename
-std::string mjuu_stripext(std::string filename);
+MJAPI std::string mjuu_stripext(std::string filename);
 
 // get the extension of a filename
-std::string mjuu_getext(std::string_view filename);
+MJAPI std::string mjuu_getext(std::string_view filename);
 
 // check if path is absolute
-bool mjuu_isabspath(std::string path);
+MJAPI bool mjuu_isabspath(std::string path);
 
 // assemble file paths
-std::string mjuu_combinePaths(const std::string& path1, const std::string& path2);
-std::string mjuu_combinePaths(const std::string& path1, const std::string& path2,
+MJAPI std::string mjuu_combinePaths(const std::string& path1, const std::string& path2);
+MJAPI std::string mjuu_combinePaths(const std::string& path1, const std::string& path2,
                               const std::string& path3);
 
 // return type from content_type format {type}/{subtype}[;{parameter}={value}]
-std::optional<std::string_view> mjuu_parseContentTypeAttrType(std::string_view text);
+MJAPI std::optional<std::string_view> mjuu_parseContentTypeAttrType(std::string_view text);
 
 // return subtype from content_type format {type}/{subtype}[;{parameter}={value}]
-std::optional<std::string_view> mjuu_parseContentTypeAttrSubtype(std::string_view text);
+MJAPI std::optional<std::string_view> mjuu_parseContentTypeAttrSubtype(std::string_view text);
 
 // convert filename extension to content type; return empty string if not found
-std::string mjuu_extToContentType(std::string_view filename);
+MJAPI std::string mjuu_extToContentType(std::string_view filename);
 
 // get the length of the dirname portion of a given path
-int mjuu_dirnamelen(const char* path);
+MJAPI int mjuu_dirnamelen(const char* path);
 
 #endif  // MUJOCO_SRC_USER_USER_UTIL_H_

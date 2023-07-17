@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 #include <algorithm>
 #include <cstddef>
@@ -26,9 +26,9 @@
 #include <vector>
 
 #include <mujoco/mujoco.h>
-#include "user/user_model.h"
-#include "user/user_objects.h"
-#include "user/user_cache.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_cache.h>
 #include "user/user_util.h"
 
 namespace {

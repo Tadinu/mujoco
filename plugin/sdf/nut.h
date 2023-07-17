@@ -17,6 +17,7 @@
 
 #include <optional>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -28,13 +29,13 @@ namespace mujoco::plugin::sdf {
 // this plugin implements a modification of the signed distance function
 // from https://www.shadertoy.com/view/XtffzX  of hexagonal nut
 
-struct NutAttribute {
+struct MJAPI NutAttribute {
   static constexpr int nattribute = 1;
   static constexpr char const* names[nattribute] = {"radius"};
   static constexpr mjtNum defaults[nattribute] = {0.26};
 };
 
-class Nut {
+class MJAPI Nut {
  public:
   // Creates a new Nut instance (allocated with `new`) or
   // returns null on failure.

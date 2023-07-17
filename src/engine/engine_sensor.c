@@ -20,11 +20,11 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_core_smooth.h"
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_io.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_ray.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_blas.h"

@@ -18,6 +18,7 @@
 #include <optional>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -26,7 +27,7 @@
 
 namespace mujoco::plugin::elasticity {
 
-class Cable {
+class MJAPI Cable {
  public:
   // Creates a new Cable instance (allocated with `new`) or
   // returns null on failure.
