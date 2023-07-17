@@ -26,12 +26,12 @@
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
 #include <mujoco/mjxmacro.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_core_smooth.h"
 #include "engine/engine_forward.h"
 #include "engine/engine_init.h"
 #include "engine/engine_macro.h"
 #include "engine/engine_memory.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_sleep.h"
 #include "engine/engine_thread.h"
 #include "engine/engine_util_blas.h"

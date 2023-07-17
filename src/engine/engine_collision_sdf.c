@@ -21,7 +21,7 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
 #include <mujoco/mjtype.h>
-#include "engine/engine_plugin.h"
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"

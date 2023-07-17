@@ -27,18 +27,19 @@
 #include <utility>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjspec.h>
 #include <mujoco/mjtype.h>
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 
 typedef std::map<std::string, int, std::less<>>                    mjKeyMap;
 typedef std::array<mjKeyMap, mjNOBJECT>                            mjListKeyMap;
 typedef std::array<std::unordered_set<std::string>, mjNOBJECT + 1> mjNameSet;
 
-class mjCModel_ : public mjsElement {
+class MJAPI mjCModel_ : public mjsElement {
  public:
   // attach namespaces
   std::string prefix;
@@ -162,7 +163,7 @@ class mjCModel_ : public mjsElement {
 // by loading an XML file via mjCXML.  Once an mjCModel object is
 // constructed, 'Compile' can be called to generate the corresponding mjModel object
 // (which is the low-level model).  The mjCModel object can then be deleted.
-class mjCModel : public mjCModel_, private mjSpec {
+class MJAPI mjCModel : public mjCModel_, public mjSpec {
   friend class mjCBase;
   friend class mjCBody;
   friend class mjCCamera;
@@ -321,9 +322,11 @@ class mjCModel : public mjCModel_, private mjSpec {
                      const std::string& plugin_instance_name,
                      mjCPlugin**        plugin_instance);
 
+ public:
   // clear objects allocated by Compile
   void Clear();
 
+ public:
   // temporary state saved across mj_recompile
   struct mjRecompileState {
     mjtNum              time = 0;
@@ -421,7 +424,6 @@ class mjCModel : public mjCModel_, private mjSpec {
     if (--refcount == 0) { delete this; }
   }
 
- private:
   int refcount = 1;
 
   // settings for each defaults class

@@ -3780,6 +3780,7 @@ int mj_loadTexture(const mjModel* m, int id, mjtByte** data, int* width, int* he
                    int* colorspace, char* error, int error_sz);
 mjModel* mj_embedAssets(const mjModel* m, char* error, int error_sz);
 int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int error_sz);
+int mj_saveUserModelXML(const char* filename, const mjModel* m, const void* user_model, char* error, int error_sz);
 void mj_freeLastXML(void);
 int mj_saveXMLString(const mjSpec* s, char* xml, int xml_sz, char* error, int error_sz);
 int mj_saveXML(const mjSpec* s, const char* filename, char* error, int error_sz);

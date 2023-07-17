@@ -22,17 +22,18 @@
 #include <vector>
 
 #include <mujoco/mujoco.h>
+#include <mujoco/mjexport.h>
 
 namespace mujoco::plugin::elasticity {
 
-struct PairHash {
+struct MJAPI PairHash {
   template <class T1, class T2>
   std::size_t operator()(const std::pair<T1, T2>& pair) const {
     return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
   }
 };
 
-struct Stencil2D {
+struct MJAPI Stencil2D {
   static constexpr int kNumEdges = 3;
   static constexpr int kNumVerts = 3;
   static constexpr int kNumFaces = 2;
@@ -43,7 +44,7 @@ struct Stencil2D {
   int edges[kNumEdges];
 };
 
-struct Stencil3D {
+struct MJAPI Stencil3D {
   static constexpr int kNumEdges = 6;
   static constexpr int kNumVerts = 4;
   static constexpr int kNumFaces = 3;
@@ -58,10 +59,10 @@ struct Stencil3D {
 };
 
 // copied from mjXUtil
-void String2Vector(const std::string& txt, std::vector<int>& vec);
+void MJAPI String2Vector(const std::string& txt, std::vector<int>& vec);
 
 // reads numeric attributes
-bool CheckAttr(const char* name, const mjModel* m, int instance);
+bool MJAPI CheckAttr(const char* name, const mjModel* m, int instance);
 
 }  // namespace mujoco::plugin::elasticity
 
