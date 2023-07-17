@@ -23,8 +23,8 @@
 
 #include <mujoco/mujoco.h>
 #include <mujoco/mjspec.h>
-#include "user/user_model.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
 
 
 typedef enum _mjtFcompType {
@@ -54,7 +54,7 @@ typedef enum _mjtDof {
 } mjtDof;
 
 
-class mjCFlexcomp {
+class MJAPI mjCFlexcomp {
  public:
   mjCFlexcomp(void);
   bool Make(mjsBody* body, char* error, int error_sz, const mjVFS* vfs = nullptr);

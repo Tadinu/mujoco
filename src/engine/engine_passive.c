@@ -20,6 +20,7 @@
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtype.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_callback.h"
 #include "engine/engine_core_constraint.h"
 #include "engine/engine_core_util.h"
@@ -27,7 +28,6 @@
 #include "engine/engine_inline.h"
 #include "engine/engine_memory.h"
 #include "engine/engine_metric.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_sleep.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_blas.h"

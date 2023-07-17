@@ -23,6 +23,7 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjsan.h>  // IWYU pragma: keep
 #include <mujoco/mjvisualize.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_collision_sdf.h"
 #include "engine/engine_memory.h"
 #include "engine/engine_util_blas.h"

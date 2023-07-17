@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mujoco.h>
 
 namespace mujoco::plugin::sdf {
@@ -41,7 +42,7 @@ bool CheckAttr(const char* name, const mjModel* m, int instance);
 
 // converts attributes to numeric or returns default if not present
 template <typename T>
-class SdfDefault {
+class MJAPI SdfDefault {
  public:
   SdfDefault() {
     for (int i = 0; i < T::nattribute; i++) {
@@ -76,7 +77,7 @@ class SdfDefault {
 };
 
 // stores the history of gradient descent iterations
-class SdfVisualizer {
+class MJAPI SdfVisualizer {
  public:
   SdfVisualizer();
   SdfVisualizer(SdfVisualizer&&) = default;
