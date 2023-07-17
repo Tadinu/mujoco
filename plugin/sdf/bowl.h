@@ -17,6 +17,7 @@
 
 #include <optional>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -25,14 +26,14 @@
 
 namespace mujoco::plugin::sdf {
 
-struct BowlAttribute {
+struct MJAPI BowlAttribute {
   static constexpr int nattribute = 3;
   static constexpr char const* names[nattribute] = {"height", "radius",
                                                     "thickness"};
   static constexpr mjtNum defaults[nattribute] = {.4, 1., .02};
 };
 
-class Bowl {
+class MJAPI Bowl {
  public:
   // Creates a new Bowl instance (allocated with `new`) or
   // returns null on failure.

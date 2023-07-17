@@ -17,7 +17,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include "src/user/user_api.h"
+#include <mujoco/user/user_api.h>
 #include "test/fixture.h"
 
 namespace mujoco {

@@ -19,6 +19,8 @@
 
 #include <SdfLib/utils/Mesh.h>
 #include <SdfLib/OctreeSdf.h>
+
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -26,7 +28,7 @@
 #include "sdf.h"
 
 namespace mujoco::plugin::sdf {
-class SdfLib {
+class MJAPI SdfLib {
  public:
   // Creates a new SdfLib instance or returns null on failure.
   static std::optional<SdfLib> Create(const mjModel* m, mjData* d,

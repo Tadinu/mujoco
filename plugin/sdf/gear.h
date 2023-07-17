@@ -17,6 +17,7 @@
 
 #include <optional>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -25,7 +26,7 @@
 
 namespace mujoco::plugin::sdf {
 
-struct GearAttribute {
+struct MJAPI GearAttribute {
   static constexpr int nattribute = 5;
   static constexpr char const* names[nattribute] = {"alpha", "diameter",
                                                     "teeth", "thickness",
@@ -33,7 +34,7 @@ struct GearAttribute {
   static constexpr mjtNum defaults[nattribute] = { 0, 2.8, 25, .2 , -1};
 };
 
-class Gear {
+class MJAPI Gear {
  public:
   // Creates a new Gear instance (allocated with `new`) or
   // returns null on failure.

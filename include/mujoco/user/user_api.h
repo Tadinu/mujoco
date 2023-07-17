@@ -28,7 +28,7 @@ extern "C" {
 
 
 //---------------------------------- handles to internal objects -----------------------------------
-
+struct _mjElement {void* _;};
 typedef struct _mjElement* mjElement;
 typedef struct _mjString* mjString;
 typedef struct _mjStringVec* mjStringVec;

@@ -16,8 +16,8 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mujoco.h>
 #include "cc/array_safety.h"
-#include "user/user_api.h"
-#include "user/user_util.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_util.h>
 
 
 

@@ -22,12 +22,12 @@
 #include <utility>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
-#include <mujoco/mjtnum.h>
-#include "user/user_api.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_objects.h>
 
 typedef std::map<std::string, int, std::less<> > mjKeyMap;
 typedef std::array<mjKeyMap, mjNOBJECT> mjListKeyMap;
@@ -42,7 +42,7 @@ typedef std::array<mjKeyMap, mjNOBJECT> mjListKeyMap;
 // constructed, 'Compile' can be called to generate the corresponding mjModel object
 // (which is the low-level model).  The mjCModel object can then be deleted.
 
-class mjCModel : private mjmModel {
+class MJAPI mjCModel : public mjmModel {
   friend class mjCBody;
   friend class mjCCamera;
   friend class mjCGeom;
@@ -133,17 +133,18 @@ class mjCModel : private mjmModel {
   std::string modelfiledir;       // path to model file
   std::vector<mjCDef*> defaults;  // settings for each defaults class
 
- private:
+  std::vector<std::pair<const mjpPlugin*, int>> active_plugins;  // list of active plugins
+ public:
   void TryCompile(mjModel*& m, mjData*& d, const mjVFS* vfs);
   mjModel* _Compile(const mjVFS* vfs);
 
   void Clear(void);               // clear objects allocated by Compile
 
   template <class T>              // add object of any type
-  T* AddObject(std::vector<T*>& list, std::string type);
+  T* AddObject(std::vector<T*>& list, const char* type);
 
   template <class T>              // add object of any type, with def parameter
-  T* AddObjectDef(std::vector<T*>& list, std::string type, mjCDef* def);
+  T* AddObjectDef(std::vector<T*>& list, const char* type, mjCDef* def);
 
   template<class T>              // if asset name is missing, set to filename
   void SetDefaultNames(std::vector<T*>& assets);
@@ -246,7 +247,6 @@ class mjCModel : private mjmModel {
   std::vector<mjCTuple*>    tuples;      // list of tuple fields
   std::vector<mjCKey*>      keys;        // list of keyframe fields
 
-  std::vector<std::pair<const mjpPlugin*, int>> active_plugins;  // list of active plugins
   std::vector<mjCPlugin*>   plugins;     // list of plugin instances
 
   // pointers to objects created inside kinematic tree

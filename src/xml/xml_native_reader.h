@@ -18,10 +18,11 @@
 #include <sstream>
 #include <string>
 
+#include <mujoco/mujoco.h>
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_model.h>
 #include "tinyxml2.h"
 
-#include <mujoco/mujoco.h>
-#include "user/user_api.h"
 #include "xml/xml_base.h"
 #include "xml/xml_util.h"
 

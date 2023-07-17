@@ -16,17 +16,17 @@
 #define MUJOCO_SRC_XML_XML_H_
 
 #include <string>
-
+#include <mujoco/mjexport.h>
 #include <mujoco/mjmodel.h>
-#include "user/user_model.h"
+#include <mujoco/user/user_model.h>
 
 // Top level API
 
 // Main writer function
-std::string mjWriteXML(mjCModel* model, char* error, int error_sz);
+MJAPI std::string mjWriteXML(mjCModel* model, char* error, int error_sz);
 
 // Main parser function
-mjCModel* mjParseXML(const char* filename, const mjVFS* vfs, char* error, int error_sz);
+MJAPI mjCModel* mjParseXML(const char* filename, const mjVFS* vfs, char* error, int error_sz);
 
 
 #endif  // MUJOCO_SRC_XML_XML_H_

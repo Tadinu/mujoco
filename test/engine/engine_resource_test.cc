@@ -22,7 +22,8 @@
 #include "src/cc/array_safety.h"
 #include <mujoco/mjplugin.h>
 #include <mujoco/mujoco.h>
-#include "src/engine/engine_plugin.h"
+#include <mujoco/engine/engine_vfs.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "src/engine/engine_resource.h"
 #include "test/fixture.h"
 

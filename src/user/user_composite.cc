@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_api.h"
-#include "user/user_composite.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_composite.h>
 
 #include <algorithm>
 #include <cmath>
@@ -25,18 +25,19 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mujoco.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
 #include "cc/array_safety.h"
 #include "engine/engine_io.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 #include "xml/xml_util.h"
 
 namespace {
@@ -628,6 +629,8 @@ bool mjCComposite::MakeGrid(mjCModel* model, mjmBody* body, char* error, int err
       g->type = mjGEOM_SPHERE;
       mju::sprintf_arr(txt, "%sG%d_%d", prefix.c_str(), ix, iy);
       mjm_setString(g->name, txt);
+      //g->_mass = 0.1;
+      //g->margin = g->gap = 1;
 
       // add site
       mjmSite* s = mjm_addSite(b, &def[0].spec);
@@ -641,6 +644,7 @@ bool mjCComposite::MakeGrid(mjCModel* model, mjmBody* body, char* error, int err
       for (int ip=0; ip<pin.size(); ip+=2) {
         if (pin[ip]==ix && pin[ip+1]==iy) {
           skip = true;
+          //std::cout << "skip joints creation for geom at pin[ip]:" << ":" << ix << "[ip+1]:" << iy << "ip=" << ip << std::endl;
           break;
         }
       }
@@ -1068,8 +1072,6 @@ mjmBody* mjCComposite::AddRopeBody(mjCModel* model, mjmBody* body, int ix, int i
 
   return body;
 }
-
-
 
 // project from box to other shape
 void mjCComposite::BoxProject(double* pos) {

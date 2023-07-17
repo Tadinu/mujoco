@@ -25,9 +25,10 @@
 #include <vector>
 
 #include <mujoco/mjtnum.h>
+#include <mujoco/mjexport.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 // forward declarations of all mjC/X classes
 class mjCError;
@@ -69,7 +70,7 @@ const int mjGEOMINFO[mjNGEOMTYPES] = {3, 0, 1, 2, 3, 2, 3, 0};
 
 
 // error information
-class [[nodiscard]] mjCError {
+class MJAPI [[nodiscard]] mjCError {
  public:
   mjCError(const mjCBase* obj = 0,
            const char* msg = 0,
@@ -83,7 +84,7 @@ class [[nodiscard]] mjCError {
 
 
 // alternative specifications of frame orientation
-class mjCAlternative : public mjmOrientation {
+class MJAPI mjCAlternative : public mjmOrientation {
  public:
   mjCAlternative();                               // constuctor
   const char* Set(double* quat,                   // set frame quat
@@ -96,7 +97,7 @@ class mjCAlternative : public mjmOrientation {
 //------------------------- class mjCBoundingVolumeHierarchy ---------------------------------------
 
 // bounding volume
-class mjCBoundingVolume {
+class MJAPI mjCBoundingVolume {
  public:
   mjCBoundingVolume() { id_ = nullptr; };
 
@@ -117,7 +118,7 @@ class mjCBoundingVolume {
 
 
 // bounding volume hierarchy
-class mjCBoundingVolumeHierarchy {
+class MJAPI mjCBoundingVolumeHierarchy {
  public:
   mjCBoundingVolumeHierarchy();
 
@@ -148,7 +149,7 @@ class mjCBoundingVolumeHierarchy {
 //------------------------- class mjCBase ----------------------------------------------------------
 // Generic functionality for all derived classes
 
-class mjCBase {
+class MJAPI mjCBase {
   friend class mjCDef;
 
  public:
@@ -183,7 +184,7 @@ class mjCBase {
 //------------------------- class mjCBody -----------------------------------------------
 // Describes a rigid body
 
-class mjCBody : public mjCBase, private mjmBody {
+class MJAPI mjCBody : public mjCBase, public mjmBody {
   friend class mjCJoint;
   friend class mjCGeom;
   friend class mjCSite;
@@ -241,8 +242,8 @@ class mjCBody : public mjCBase, private mjmBody {
   mjCBody(mjCModel*);             // constructor
   ~mjCBody();                     // destructor
   void Compile(void);             // compiler
+public:
   void GeomFrame(void);           // get inertial info from geoms
-
   int parentid;                   // parent index in global array
   int weldid;                     // top index of body we are welded to
   int dofnum;                     // number of motion dofs for body
@@ -284,7 +285,7 @@ class mjCBody : public mjCBase, private mjmBody {
 //------------------------- class mjCFrame ---------------------------------------------------------
 // Describes a coordinate transformation relative to its parent
 
-class mjCFrame : public mjCBase, private mjmFrame {
+class MJAPI mjCFrame : public mjCBase, public mjmFrame {
   friend class mjCBase;
   friend class mjCBody;
   friend class mjCGeom;
@@ -314,7 +315,7 @@ class mjCFrame : public mjCBase, private mjmFrame {
 //------------------------- class mjCJoint ---------------------------------------------------------
 // Describes a motion degree of freedom of a body relative to its parent
 
-class mjCJoint : public mjCBase, private mjmJoint {
+class MJAPI mjCJoint : public mjCBase, public mjmJoint {
   friend class mjCDef;
   friend class mjCEquality;
   friend class mjCBody;
@@ -357,7 +358,7 @@ class mjCJoint : public mjCBase, private mjmJoint {
 //------------------------- class mjCGeom ----------------------------------------------------------
 // Describes a geometric shape belonging to a body
 
-class mjCGeom : public mjCBase, private mjmGeom {
+class MJAPI mjCGeom : public mjCBase, public mjmGeom {
   friend class mjCDef;
   friend class mjCMesh;
   friend class mjCPair;
@@ -401,6 +402,7 @@ class mjCGeom : public mjCBase, private mjmGeom {
   void PointToLocal(void);
 
   mjCAlternative alt_;
+ public:
   bool visual_;                       // true: geom does not collide and is unreferenced
   int matid;                          // id of geom's material
   mjCMesh* mesh;                      // geom's mesh
@@ -433,7 +435,7 @@ class mjCGeom : public mjCBase, private mjmGeom {
 //------------------------- class mjCSite ----------------------------------------------------------
 // Describes a site on a body
 
-class mjCSite : public mjCBase, private mjmSite {
+class MJAPI mjCSite : public mjCBase, public mjmSite {
   friend class mjCDef;
   friend class mjCBody;
   friend class mjCModel;
@@ -477,7 +479,7 @@ class mjCSite : public mjCBase, private mjmSite {
 //------------------------- class mjCCamera --------------------------------------------------------
 // Describes a camera, attached to a body
 
-class mjCCamera : public mjCBase, private mjmCamera {
+class MJAPI mjCCamera : public mjCBase, public mjmCamera {
   friend class mjCDef;
   friend class mjCBody;
   friend class mjCModel;
@@ -514,7 +516,7 @@ class mjCCamera : public mjCBase, private mjmCamera {
 //------------------------- class mjCLight ---------------------------------------------------------
 // Describes a light, attached to a body
 
-class mjCLight : public mjCBase, private mjmLight {
+class MJAPI mjCLight : public mjCBase, public mjmLight {
   friend class mjCDef;
   friend class mjCBody;
   friend class mjCModel;
@@ -546,7 +548,7 @@ class mjCLight : public mjCBase, private mjmLight {
 //------------------------- class mjCFlex ----------------------------------------------------------
 // Describes a flex
 
-class mjCFlex: public mjCBase, private mjmFlex {
+class MJAPI mjCFlex: public mjCBase, public mjmFlex {
   friend class mjCDef;
   friend class mjCModel;
   friend class mjCFlexcomp;
@@ -613,7 +615,7 @@ class mjCFlex: public mjCBase, private mjmFlex {
 //------------------------- class mjCMesh ----------------------------------------------------------
 // Describes a mesh
 
-class mjCMesh: public mjCBase, private mjmMesh {
+class MJAPI mjCMesh: public mjCBase, public mjmMesh {
   friend class mjCFlexcomp;
   friend class mjXWriter;
  public:
@@ -643,6 +645,18 @@ class mjCMesh: public mjCBase, private mjmMesh {
   const std::vector<float>& get_usertexcoord() const { return usertexcoord_; }
   const std::vector<int>& get_userface() const { return userface_; }
 
+  void set_uservert(std::vector<float>&& in_vert) { uservert_ = std::move(in_vert);}
+  void set_usernormal(std::vector<float>&& in_normal) { usernormal_ = std::move(in_normal); }
+  void set_usertexcoord(std::vector<float>&& in_texcoord) { usertexcoord_ = std::move(in_texcoord); }
+  void set_userface(std::vector<int>&& in_face) { userface_ = std::move(in_face); }
+
+  void set_file(const std::string& in_file) { file_ = in_file; }
+  void set_scale(double in_scale[3]) {
+    for (int j=0; j<3; j++) {
+      scale[j] += in_scale[j];
+    }
+  }
+
   // mesh properties computed by Compile
   const double* aamm() const { return aamm_; }
 
@@ -667,6 +681,7 @@ class mjCMesh: public mjCBase, private mjmMesh {
   double& GetVolumeRef(mjtGeomInertia type);           // get volume
   void FitGeom(mjCGeom* geom, double* meshpos);     // approximate mesh with simple geom
   bool HasTexcoord() const;                         // texcoord not null
+  bool HasFaceTexcoord() const;                     // facetexcoord not null
   void DelTexcoord();                               // delete texcoord
   bool IsVisual(void) const { return visual_; }     // is geom visual
   void SetNotVisual(void) { visual_ = false; }      // mark mesh as not visual
@@ -773,7 +788,7 @@ class mjCMesh: public mjCBase, private mjmMesh {
 //------------------------- class mjCSkin ----------------------------------------------------------
 // Describes a skin
 
-class mjCSkin: public mjCBase, private mjmSkin {
+class MJAPI mjCSkin: public mjCBase, public mjmSkin {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -836,7 +851,7 @@ class mjCSkin: public mjCBase, private mjmSkin {
 //------------------------- class mjCHField --------------------------------------------------------
 // Describes a height field
 
-class mjCHField : public mjCBase, private mjmHField {
+class MJAPI mjCHField : public mjCBase, public mjmHField {
   friend class mjCGeom;
   friend class mjCModel;
   friend class mjXWriter;
@@ -876,7 +891,7 @@ class mjCHField : public mjCBase, private mjmHField {
 //------------------------- class mjCTexture -------------------------------------------------------
 // Describes a texture
 
-class mjCTexture : public mjCBase, private mjmTexture {
+class MJAPI mjCTexture : public mjCBase, public mjmTexture {
   friend class mjCModel;
   friend class mjXReader;
   friend class mjXWriter;
@@ -932,7 +947,7 @@ class mjCTexture : public mjCBase, private mjmTexture {
 //------------------------- class mjCMaterial ------------------------------------------------------
 // Describes a material for rendering
 
-class mjCMaterial : public mjCBase, private mjmMaterial {
+class MJAPI mjCMaterial : public mjCBase, public mjmMaterial {
   friend class mjCDef;
   friend class mjCModel;
   friend class mjXWriter;
@@ -963,7 +978,7 @@ class mjCMaterial : public mjCBase, private mjmMaterial {
 //------------------------- class mjCPair ----------------------------------------------------------
 // Predefined geom pair for collision detection
 
-class mjCPair : public mjCBase, private mjmPair {
+class MJAPI mjCPair : public mjCBase, public mjmPair {
   friend class mjCDef;
   friend class mjCBody;
   friend class mjCModel;
@@ -1004,7 +1019,7 @@ class mjCPair : public mjCBase, private mjmPair {
 //------------------------- class mjCBodyPair ------------------------------------------------------
 // Body pair specification, use to exclude pairs
 
-class mjCBodyPair : public mjCBase, private mjmExclude {
+class MJAPI mjCBodyPair : public mjCBase, public mjmExclude {
   friend class mjCBody;
   friend class mjCModel;
 
@@ -1042,7 +1057,7 @@ class mjCBodyPair : public mjCBase, private mjmExclude {
 //------------------------- class mjCEquality ------------------------------------------------------
 // Describes an equality constraint
 
-class mjCEquality : public mjCBase, private mjmEquality {
+class MJAPI mjCEquality : public mjCBase, public mjmEquality {
   friend class mjCDef;
   friend class mjCBody;
   friend class mjCModel;
@@ -1075,7 +1090,7 @@ class mjCEquality : public mjCBase, private mjmEquality {
 //------------------------- class mjCTendon --------------------------------------------------------
 // Describes a tendon
 
-class mjCTendon : public mjCBase, private mjmTendon {
+class MJAPI mjCTendon : public mjCBase, public mjmTendon {
   friend class mjCDef;
   friend class mjCModel;
   friend class mjXWriter;
@@ -1129,7 +1144,7 @@ class mjCTendon : public mjCBase, private mjmTendon {
 //------------------------- class mjCWrap ----------------------------------------------------------
 // Describes a tendon wrap object
 
-class mjCWrap : public mjCBase, private mjmWrap {
+class MJAPI mjCWrap : public mjCBase, public mjmWrap {
   friend class mjCTendon;
   friend class mjCModel;
 
@@ -1157,7 +1172,7 @@ class mjCWrap : public mjCBase, private mjmWrap {
 //------------------------- class mjCPlugin --------------------------------------------------------
 // Describes an instance of a plugin
 
-class mjCPlugin : public mjCBase {
+class MJAPI mjCPlugin : public mjCBase {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -1179,7 +1194,7 @@ class mjCPlugin : public mjCBase {
 //------------------------- class mjCActuator ------------------------------------------------------
 // Describes an actuator
 
-class mjCActuator : public mjCBase, private mjmActuator {
+class MJAPI mjCActuator : public mjCBase, public mjmActuator {
   friend class mjCDef;
   friend class mjCModel;
   friend class mjXWriter;
@@ -1226,7 +1241,7 @@ class mjCActuator : public mjCBase, private mjmActuator {
 //------------------------- class mjCSensor --------------------------------------------------------
 // Describes a sensor
 
-class mjCSensor : public mjCBase, private mjmSensor {
+class MJAPI mjCSensor : public mjCBase, public mjmSensor {
   friend class mjCDef;
   friend class mjCModel;
   friend class mjXWriter;
@@ -1267,7 +1282,7 @@ class mjCSensor : public mjCBase, private mjmSensor {
 //------------------------- class mjCNumeric -------------------------------------------------------
 // Describes a custom data field
 
-class mjCNumeric : public mjCBase, private mjmNumeric {
+class MJAPI mjCNumeric : public mjCBase, public mjmNumeric {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -1293,7 +1308,7 @@ class mjCNumeric : public mjCBase, private mjmNumeric {
 //------------------------- class mjCText ----------------------------------------------------------
 // Describes a custom text field
 
-class mjCText : public mjCBase, private mjmText {
+class MJAPI mjCText : public mjCBase, public mjmText {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -1319,7 +1334,7 @@ class mjCText : public mjCBase, private mjmText {
 //------------------------- class mjCTuple ---------------------------------------------------------
 // Describes a custom tuple field
 
-class mjCTuple : public mjCBase, private mjmTuple {
+class MJAPI mjCTuple : public mjCBase, public mjmTuple {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -1352,7 +1367,7 @@ class mjCTuple : public mjCBase, private mjmTuple {
 //------------------------- class mjCKey -----------------------------------------------------------
 // Describes a keyframe
 
-class mjCKey : public mjCBase, private mjmKey {
+class MJAPI mjCKey : public mjCBase, public mjmKey {
   friend class mjCModel;
   friend class mjXWriter;
 
@@ -1388,7 +1403,7 @@ class mjCKey : public mjCBase, private mjmKey {
 //------------------------- class mjCDef -----------------------------------------------------------
 // Describes one set of defaults
 
-class mjCDef {
+class MJAPI mjCDef {
   friend class mjXWriter;
 
  public:

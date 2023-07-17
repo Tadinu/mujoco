@@ -22,10 +22,11 @@
 #include <vector>
 
 #include <mujoco/mujoco.h>
+#include <mujoco/mjexport.h>
 
 namespace mujoco::plugin::elasticity {
 
-struct PairHash
+struct MJAPI PairHash
 {
     template <class T1, class T2>
     std::size_t operator() (const std::pair<T1, T2>& pair) const {
@@ -55,7 +56,7 @@ inline void UpdateSquaredLengthsFlex(std::vector<mjtNum>& len,
   }
 }
 
-struct Stencil2D {
+struct MJAPI Stencil2D {
   static constexpr int kNumEdges = 3;
   static constexpr int kNumVerts = 3;
   static constexpr int edge[kNumEdges][2] = {{1, 2}, {2, 0}, {0, 1}};
@@ -63,7 +64,7 @@ struct Stencil2D {
   int edges[kNumEdges];
 };
 
-struct Stencil3D {
+struct MJAPI Stencil3D {
   static constexpr int kNumEdges = 6;
   static constexpr int kNumVerts = 4;
   static constexpr int edge[kNumEdges][2] = {{0, 1}, {1, 2}, {2, 0},
@@ -196,16 +197,16 @@ void inline MetricTensor(std::vector<mjtNum>& metric, int idx, mjtNum mu,
 
 // convert from Flex connectivity to stencils
 template <typename T>
-int CreateStencils(std::vector<T>& elements,
+int MJAPI CreateStencils(std::vector<T>& elements,
                    std::vector<std::pair<int, int>>& edges,
                    const std::vector<int>& simplex,
                    const std::vector<int>& edgeidx);
 
 // copied from mjXUtil
-void String2Vector(const std::string& txt, std::vector<int>& vec);
+void MJAPI String2Vector(const std::string& txt, std::vector<int>& vec);
 
 // reads numeric attributes
-bool CheckAttr(const char* name, const mjModel* m, int instance);
+bool MJAPI CheckAttr(const char* name, const mjModel* m, int instance);
 
 }  // namespace mujoco::plugin::elasticity
 

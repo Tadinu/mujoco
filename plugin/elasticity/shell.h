@@ -18,6 +18,7 @@
 #include <optional>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -31,7 +32,7 @@ struct StencilFlap {
   int vertices[kNumVerts];
 };
 
-class Shell {
+class MJAPI Shell {
  public:
   // Returns a new Shell instance or nullopt on failure.
   static std::optional<Shell> Create(const mjModel* m, mjData* d,

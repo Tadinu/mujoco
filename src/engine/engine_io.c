@@ -26,14 +26,14 @@
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjxmacro.h>
+#include <mujoco/engine/engine_vfs.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_macro.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "engine/engine_vfs.h"
 #include "thread/thread_pool.h"
 
 #ifdef ADDRESS_SANITIZER

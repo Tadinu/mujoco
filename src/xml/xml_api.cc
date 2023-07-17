@@ -25,8 +25,9 @@
 #include <type_traits>
 
 #include <mujoco/mjmodel.h>
-#include "user/user_model.h"
-#include "xml/xml.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/engine/engine_vfs.h>
+#include <mujoco/xml/xml.h>
 #include "xml/xml_native_reader.h"
 #include "xml/xml_util.h"
 
@@ -111,6 +112,14 @@ mjModel* mj_loadXML(const char* filename, const mjVFS* vfs,
 
   // clear old and assign new
   GetGlobalModel().Set(model.release());
+
+#if 0 // MJ_SAVE_USER_XML
+  std::array<char, 1024> exportError;
+  exportError.data()[0] = '\0';
+  const std::string modelMjcfFilePath = "compiled.mjcf";
+  mj_saveUserModelXML(modelMjcfFilePath.c_str(), newmodel, exportError.data(), exportError.size());
+#endif
+
   return m;
 }
 
@@ -141,7 +150,29 @@ int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int erro
   return result.has_value();
 }
 
+int mj_saveUserModelXML(const char* filename, const void* user_model, char* error, int error_sz) {
+  FILE *fp = stdout;
 
+  if (filename != nullptr && filename[0] != '\0') {
+    fp = fopen(filename, "w");
+    if (!fp) {
+      mjCopyError(error, "File not found", error_sz);
+      return 0;
+    }
+  }
+
+  std::string result = mjWriteXML(reinterpret_cast<mjCModel*>(const_cast<void*>(user_model)), error, error_sz);
+
+  if (!result.empty()) {
+    fprintf(fp, "%s", result.c_str());
+  }
+
+  if (fp != stdout) {
+    fclose(fp);
+  }
+
+  return !result.empty();
+}
 
 // free last XML
 void mj_freeLastXML(void) {

@@ -33,13 +33,15 @@
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjvisualize.h>
 #include <mujoco/mjtnum.h>
-#include "engine/engine_plugin.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_flexcomp.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_composite.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_api.h"
-#include "user/user_composite.h"
-#include "user/user_flexcomp.h"
-#include "user/user_util.h"
 #include "xml/xml_base.h"
 #include "xml/xml_util.h"
 

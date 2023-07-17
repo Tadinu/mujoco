@@ -26,6 +26,14 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 # This line has to appear before 'PROJECT' in order to be able to disable incremental linking
 set(MSVC_INCREMENTAL_DEFAULT ON)
 
+set(CMAKE_CXX_STANDARD 17)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+  message("CMAKE COMPILER:")
+  message(${CMAKE_CXX_COMPILER_ID})
+  message(${CMAKE_CXX_COMPILER_VERSION})
+endif()
+
 project(
   mujoco
   VERSION 3.1.3
@@ -40,8 +48,8 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 option(MUJOCO_BUILD_EXAMPLES "Build samples for MuJoCo" ON)
 option(MUJOCO_BUILD_SIMULATE "Build simulate library for MuJoCo" ON)
-option(MUJOCO_BUILD_TESTS "Build tests for MuJoCo" ON)
-option(MUJOCO_TEST_PYTHON_UTIL "Build and test utility libraries for Python bindings" ON)
+option(MUJOCO_BUILD_TESTS "Build tests for MuJoCo" OFF)
+option(MUJOCO_TEST_PYTHON_UTIL "Build and test utility libraries for Python bindings" OFF)
 
 if(APPLE AND (MUJOCO_BUILD_EXAMPLES OR MUJOCO_BUILD_SIMULATE))
   enable_language(OBJC)
@@ -65,7 +73,18 @@ set(MUJOCO_HEADERS
     include/mujoco/mjvisualize.h
     include/mujoco/mjxmacro.h
     include/mujoco/mujoco.h
+    include/mujoco/user/user_model.h
+    include/mujoco/user/user_objects.h
+    include/mujoco/user/user_composite.h
+    include/mujoco/user/user_flexcomp.h
+    include/mujoco/user/user_util.h
+    include/mujoco/engine/engine_vfs.h
+    include/mujoco/engine/engine_plugin.h
+    include/mujoco/xml/xml.h
 )
+
+# DO NOT USE GLOB, SINCE CMAKE SYSTEM MUST BE ALWAYS TRIGGERED TO RERUN WHEN THERE ARE CHANGES TO HEADERS
+message(STATUS "MUJOCO_HEADERS: ${MUJOCO_HEADERS}")
 
 # Add metadata to mujoco.dll when building on Windows.
 if(WIN32)
@@ -156,6 +175,7 @@ if(APPLE AND MUJOCO_BUILD_MACOS_FRAMEWORKS)
     COMMAND ln -fhs A $<TARGET_FILE_DIR:mujoco>/../Current
     COMMAND ln -fhs Versions/Current/mujoco.tbd $<TARGET_FILE_DIR:mujoco>/../../mujoco.tbd
     COMMAND ln -fhs Versions/Current/Headers $<TARGET_FILE_DIR:mujoco>/../../Headers
+    COMMAND ln -fhs Versions/Current/Headers/user $<TARGET_FILE_DIR:mujoco>/../../Headers/user
     COMMAND ln -fhs Versions/Current/Modules $<TARGET_FILE_DIR:mujoco>/../../Modules
     COMMAND ln -fhs Versions/Current/Resources $<TARGET_FILE_DIR:mujoco>/../../Resources
     COMMAND_EXPAND_LISTS

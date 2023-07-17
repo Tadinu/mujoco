@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_api.h"
-#include "user/user_flexcomp.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_flexcomp.h>
 #include <stdio.h>
 
 #include <cstddef>
@@ -27,6 +27,9 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
 #include "cc/array_safety.h"
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_resource.h"
@@ -34,9 +37,6 @@
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
 #include "engine/engine_util_spatial.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 
 namespace {
 namespace mju = ::mujoco::util;

@@ -20,8 +20,8 @@
 
 #include "tinyxml2.h"
 #include <mujoco/mjmodel.h>
-#include "user/user_model.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
 #include "xml/xml_util.h"
 
 

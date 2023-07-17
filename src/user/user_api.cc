@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 #include <functional>
 #include <map>
 #include <string>
@@ -20,8 +20,8 @@
 #include <vector>
 
 #include <mujoco/mujoco.h>
-#include "user/user_model.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
 #include "xml/xml_util.h"
 
 

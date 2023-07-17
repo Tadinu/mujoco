@@ -33,10 +33,10 @@
 #include "tinyxml2.h"
 
 #include <mujoco/mujoco.h>
+#include <mujoco/user/user_util.h>
 #include "cc/array_safety.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_util_errmem.h"
-#include "user/user_util.h"
 #include "xml/xml_util.h"
 #include "xml/xml_numeric_format.h"
 

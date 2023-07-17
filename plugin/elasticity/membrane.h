@@ -19,6 +19,7 @@
 #include <utility>
 #include <vector>
 
+#include <mujoco/mjexport.h>
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
@@ -27,7 +28,7 @@
 
 namespace mujoco::plugin::elasticity {
 
-class Membrane {
+class MJAPI Membrane {
  public:
   // Returns a new Membrane instance or nullopt on failure.
   static std::optional<Membrane> Create(const mjModel* m, mjData* d,

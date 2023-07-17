@@ -19,9 +19,9 @@
 #include <vector>
 
 #include <mujoco/mujoco.h>
-#include "user/user_api.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
 
 
 typedef enum _mjtFcompType {
@@ -37,7 +37,7 @@ typedef enum _mjtFcompType {
 } mjtFcompType;
 
 
-class mjCFlexcomp {
+class MJAPI mjCFlexcomp {
  public:
   mjCFlexcomp(void);
   bool Make(mjCModel* model, mjmBody* body, char* error, int error_sz);

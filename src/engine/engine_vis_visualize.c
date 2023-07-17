@@ -21,9 +21,9 @@
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjvisualize.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_array_safety.h"
 #include "engine/engine_io.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_support.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"

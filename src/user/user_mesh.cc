@@ -25,8 +25,9 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <iostream>
 
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 #ifdef MUJOCO_TINYOBJLOADER_IMPL
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -51,18 +52,18 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjtnum.h>
 #include <mujoco/mjplugin.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_objects.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/engine/engine_plugin.h>
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_io.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
 #include "engine/engine_util_solve.h"
 #include "engine/engine_util_spatial.h"
-#include "user/user_model.h"
-#include "user/user_objects.h"
-#include "user/user_util.h"
 #include "xml/xml_util.h"
 #include <tiny_obj_loader.h>
 
@@ -370,6 +371,7 @@ void mjCMesh::Compile(const mjVFS* vfs) {
   else if (plugin.active) {
     LoadSDF();
   }
+  //else: [uservert_, user_face_] could have been filled already, dynamically from an external geom processor
 
   // copy user vertex
   if (!uservert_.empty()) {
@@ -634,6 +636,9 @@ bool mjCMesh::HasTexcoord() const {
   return texcoord_ != nullptr;
 }
 
+bool mjCMesh::HasFaceTexcoord() const {
+  return facetexcoord_ != nullptr;
+}
 
 
 void mjCMesh::CopyVert(float* arr) const {
@@ -975,9 +980,9 @@ void mjCMesh::LoadSTL(mjResource* resource) {
 
   // get number of triangles, check bounds
   ReadFromBuffer(&nface_, buffer + 80);
-  if (nface_<1 || nface_>200000) {
+  if (nface_<1 || nface_>1000000) {
     throw mjCError(this,
-                   "number of faces should be between 1 and 200000 in STL file '%s';"
+                   "number of faces should be between 1 and 1000000 in STL file '%s';"
                    " perhaps this is an ASCII file?", resource->name);
   }
 

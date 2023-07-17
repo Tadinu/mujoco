@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 
 #include <algorithm>
 #include <array>
@@ -33,20 +33,20 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjtnum.h>
+#include <mujoco/user/user_api.h>
+#include <mujoco/user/user_model.h>
+#include <mujoco/user/user_util.h>
+#include <mujoco/engine/engine_plugin.h>
+#include <mujoco/engine/engine_vfs.h>
 #include "cc/array_safety.h"
 #include "engine/engine_resource.h"
 #include "engine/engine_io.h"
 #include "engine/engine_passive.h"
-#include "engine/engine_plugin.h"
 #include "engine/engine_util_blas.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
 #include "engine/engine_util_solve.h"
 #include "engine/engine_util_spatial.h"
-#include "engine/engine_vfs.h"
-#include "user/user_api.h"
-#include "user/user_model.h"
-#include "user/user_util.h"
 
 namespace {
 namespace mju = ::mujoco::util;
