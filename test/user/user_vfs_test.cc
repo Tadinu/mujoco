@@ -25,9 +25,9 @@
 #include <gtest/gtest.h>
 #include <mujoco/mjplugin.h>
 #include <mujoco/mujoco.h>
+#include <mujoco/user/user_vfs.h>
 #include "src/engine/engine_util_misc.h"
-#include "src/user/user_resource.h"
-#include "src/user/user_vfs.h"
+#include "user/user_resource.h"
 #include "test/fixture.h"
 
 namespace mujoco {
