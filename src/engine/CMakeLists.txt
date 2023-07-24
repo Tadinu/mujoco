@@ -82,3 +82,8 @@ set(MUJOCO_ENGINE_SRCS
 )
 
 target_sources(mujoco PRIVATE ${MUJOCO_ENGINE_SRCS})
+
+target_include_directories(
+  mujoco
+  PUBLIC ${UE_LIBCXX_INCLUDE_DIRS}
+)

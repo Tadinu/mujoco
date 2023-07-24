@@ -14,6 +14,10 @@
 
 # Build configuration for third party libraries used in MuJoCo.
 
+set(UE_TOOLCHAIN_DIR "$ENV{UE5_DIR}/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v20_clang-13.0.1-centos7/x86_64-unknown-linux-gnu")
+set(UE_INCLUDE_DIRS ${UE_TOOLCHAIN_DIR}/include/c++/4.8.5
+                    ${UE_TOOLCHAIN_DIR}/include/c++/4.8.5/x86_64-unknown-linux-gnu)
+
 set(MUJOCO_DEP_VERSION_lodepng
     b4ed2cd7ecf61d29076169b49199371456d4f90b
     CACHE STRING "Version of `lodepng` to be fetched."
@@ -95,7 +99,7 @@ if(NOT TARGET lodepng)
     add_library(lodepng STATIC ${LODEPNG_HEADERS} ${LODEPNG_SRCS})
     target_compile_options(lodepng PRIVATE ${MUJOCO_MACOS_COMPILE_OPTIONS})
     target_link_options(lodepng PRIVATE ${MUJOCO_MACOS_LINK_OPTIONS})
-    target_include_directories(lodepng PUBLIC ${lodepng_SOURCE_DIR})
+    target_include_directories(lodepng PUBLIC ${lodepng_SOURCE_DIR} ${UE_INCLUDE_DIRS})
   endif()
 endif()
 
@@ -142,6 +146,7 @@ findorfetch(
 )
 target_compile_options(tinyxml2 PRIVATE ${MUJOCO_MACOS_COMPILE_OPTIONS})
 target_link_options(tinyxml2 PRIVATE ${MUJOCO_MACOS_LINK_OPTIONS})
+target_include_directories(tinyxml2 PRIVATE ${UE_INCLUDE_DIRS})
 
 findorfetch(
   USE_SYSTEM_PACKAGE
@@ -158,6 +163,7 @@ findorfetch(
   tinyobjloader
   EXCLUDE_FROM_ALL
 )
+target_include_directories(tinyobjloader PRIVATE ${UE_INCLUDE_DIRS})
 
 set(ENABLE_DOUBLE_PRECISION ON)
 set(CCD_HIDE_ALL_SYMBOLS ON)
