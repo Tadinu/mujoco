@@ -22,6 +22,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include <mujoco/mjmacro.h>
 #include <mujoco/mjmodel.h>
@@ -865,6 +866,7 @@ mjCBody* mjCComposite::AddRopeBody(mjCModel* model, mjCBody* body, int ix, int i
 // make 2d cloth
 bool mjCComposite::MakeCloth(mjCModel* model, mjCBody* body, char* error, int error_sz) {
   // check dim
+  std::cout<< "dim: " << dim << std::endl;
   if (dim!=2) {
     return comperr(error, "Cloth must be two-dimensional", error_sz);
   }
@@ -872,6 +874,7 @@ bool mjCComposite::MakeCloth(mjCModel* model, mjCBody* body, char* error, int er
   // check root body name prefix
   char txt[200];
   mju::sprintf_arr(txt, "%sB", prefix.c_str());
+  std::cout<< body->name << "---" << std::endl;
   if (std::strncmp(txt, body->name.substr(0, strlen(txt)).c_str(), mju::sizeof_arr(txt))) {
     mju::strcat_arr(txt, " must be the beginning of root body name");
     return comperr(error, txt, error_sz);
@@ -882,11 +885,15 @@ bool mjCComposite::MakeCloth(mjCModel* model, mjCBody* body, char* error, int er
   int ox = -1, oy = -1;
   char c;
   if (sscanf(txt, "%d%c%d", &ox, &c, &oy)!=3 || c!='_') {
+    std::cout<< ox << c << oy << std::endl;
     return comperr(error, "Root body name must contain X_Y coordinates", error_sz);
   }
+  std::cout << "coords: " << ox << " x " << oy << std::endl;
   if (ox<0 || ox>=count[0] || oy<0 || oy>=count[1]) {
+    std::cout<< ox << " must be < "<< count[0] << " & " << oy << " must be < " << count[1] << std::endl;
     return comperr(error, "Root body coordinates out of range", error_sz);
   }
+  std::cout<< "counts: "<< count[0] << " - " << count[1] << std::endl;
 
   // add origin
   AddClothBody(model, body, ox, oy, ox, oy);

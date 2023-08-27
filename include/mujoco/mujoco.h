@@ -17,7 +17,6 @@
 
 #include <mujoco/mjexport.h>
 
-
 // this is a C-API
 #if defined(__cplusplus)
 extern "C" {
@@ -60,7 +59,6 @@ MJAPI extern mjfTime     mjcb_time;
 MJAPI extern mjfAct      mjcb_act_dyn;
 MJAPI extern mjfAct      mjcb_act_gain;
 MJAPI extern mjfAct      mjcb_act_bias;
-
 
 // collision function table
 MJAPI extern mjfCollision mjCOLLISIONFUNC[mjNGEOMTYPES][mjNGEOMTYPES];
@@ -107,6 +105,8 @@ MJAPI mjModel* mj_loadXML(const char* filename, const mjVFS* vfs, char* error, i
 // Update XML data structures with info from low-level model, save as MJCF.
 // If error is not NULL, it must have size error_sz.
 MJAPI int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int error_sz);
+// NOTE: cannot include user_model.h for mjCModel here in mujoco.h
+MJAPI int mj_saveUserModelXML(const char* filename, const void* user_model, char* error, int error_sz);
 
 // Free last XML model if loaded. Called internally at each load.
 MJAPI void mj_freeLastXML(void);

@@ -21,6 +21,7 @@
 #include <cstring>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmacro.h>
@@ -2388,7 +2389,8 @@ static void processlist(vector<T*>& list, string defname, bool checkrepeat=true)
   // loop over list elements
   for (int i=0; i<(int)list.size(); i++) {
     // check for incompatible id setting; SHOULD NOT OCCUR
-    if (list[i]->id!=-1 && list[i]->id!=i) {
+    if ((list[i]->id!=-1) && (list[i]->id!=i)) {
+      std::cout << i << " name: " << list[i]->name << " id: " << list[i]->id << std::endl;
       throw mjCError(list[i], "incompatible id in %s array, position %d", defname.c_str(), i);
     }
 
@@ -2399,6 +2401,7 @@ static void processlist(vector<T*>& list, string defname, bool checkrepeat=true)
     if (checkrepeat) {
       for (int j=0; j<i; j++) {
         if (list[i]->name == list[j]->name && list[j]->name != "") {
+          std::cout << "err name: " << list[i]->name << std::endl;
           throw mjCError(list[i], "repeated name in %s array, position %d", defname.c_str(), i);
         }
       }
@@ -2496,6 +2499,9 @@ void mjCModel::TryCompile(mjModel*& m, mjData*& d, int vfs_provider) {
 
   // check for joints in world body
   if (!bodies[0]->joints.empty()) {
+    for (const auto& joint: bodies[0]->joints) {
+      std::cout << "joint name: " << joint->name << " type: " << joint->type << std::endl;
+    }
     throw mjCError(0, "joint found in world body");
   }
 

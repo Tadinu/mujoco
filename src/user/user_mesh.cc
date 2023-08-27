@@ -943,9 +943,9 @@ void mjCMesh::LoadSTL(mjResource* resource) {
 
   // get number of triangles, check bounds
   nface_ = *(unsigned int*)(buffer+80);
-  if (nface_<1 || nface_>200000) {
+  if (nface_<1 || nface_>1000000) {
     throw mjCError(this,
-                   "number of faces should be between 1 and 200000 in STL file '%s';"
+                   "number of faces should be between 1 and 1000000 in STL file '%s';"
                    " perhaps this is an ASCII file?", resource->name);
   }
 

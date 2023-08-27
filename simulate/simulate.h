@@ -46,7 +46,7 @@ class Simulate {
   using Clock = std::chrono::steady_clock;
   static_assert(std::ratio_less_equal_v<Clock::period, std::milli>);
 
-  static constexpr int kMaxGeom = 20000;
+  static constexpr int64_t kMaxGeom = 1000000;
 
   // create object and initialize the simulate ui
   Simulate(

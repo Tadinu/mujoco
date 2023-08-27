@@ -2187,6 +2187,7 @@ int mj_deleteFileVFS(mjVFS* vfs, const char* filename);
 void mj_deleteVFS(mjVFS* vfs);
 mjModel* mj_loadXML(const char* filename, const mjVFS* vfs, char* error, int error_sz);
 int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int error_sz);
+int mj_saveUserModelXML(const char* filename, const void* user_model, char* error, int error_sz);
 void mj_freeLastXML(void);
 int mj_printSchema(const char* filename, char* buffer, int buffer_sz,
                    int flg_html, int flg_pad);
