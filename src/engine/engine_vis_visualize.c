@@ -16,6 +16,7 @@
 
 #include <stddef.h>
 #include <string.h>
+#include <stdio.h>
 
 #include <mujoco/mjdata.h>
 #include <mujoco/mjmacro.h>
@@ -29,6 +30,9 @@
 #include "engine/engine_util_misc.h"
 #include "engine/engine_util_spatial.h"
 #include "engine/engine_vis_init.h"
+
+#include "render/render_util.h"
+#include "render/glad/glad.h"
 
 //----------------------------- utility functions and macros ---------------------------------------
 
@@ -2139,6 +2143,20 @@ void mjv_updateActiveSkin(const mjModel* m, mjData* d, mjvScene* scn, const mjvO
           scn->skinvert[3*k]   += inflate*scn->skinnormal[3*k];
           scn->skinvert[3*k+1] += inflate*scn->skinnormal[3*k+1];
           scn->skinvert[3*k+2] += inflate*scn->skinnormal[3*k+2];
+#if 0
+          printf("hey %f %f %f \n", scn->skinvert[3*k], scn->skinvert[3*k+1], scn->skinvert[3*k+2]);
+          float Vertices[3] = {100 * scn->skinvert[3*k], 100 * scn->skinvert[3*k+1], 100 * scn->skinvert[3*k+2]};
+          GLfloat const red[3] = {1,0,0};
+          GLuint VBO;
+          glColor3fv(red);
+          glGenBuffers(1, &VBO);
+          glBufferData(GL_ARRAY_BUFFER, 3*sizeof(float), &Vertices[0], GL_STATIC_DRAW);
+          glEnableClientState(GL_VERTEX_ARRAY);
+          glBindBuffer(GL_ARRAY_BUFFER, VBO);
+          glVertexPointer(3, GL_FLOAT, 0, NULL);
+          glDrawArrays(GL_POINTS, 0, 1);
+          glDisableClientState(GL_VERTEX_ARRAY);
+#endif
         }
       }
     }
