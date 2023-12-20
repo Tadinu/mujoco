@@ -26,7 +26,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 # This line has to appear before 'PROJECT' in order to be able to disable incremental linking
 set(MSVC_INCREMENTAL_DEFAULT ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
   message("CMAKE COMPILER:")
@@ -99,6 +99,9 @@ target_include_directories(
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/>
   PRIVATE src
+          src/optimization
+          src/optimization/simulation
+          src/optimization/LBFGSpp
 )
 
 add_subdirectory(plugin/elasticity)
@@ -111,6 +114,7 @@ add_subdirectory(src/xml)
 add_subdirectory(src/render)
 add_subdirectory(src/thread)
 add_subdirectory(src/ui)
+add_subdirectory(src/optimization)
 
 target_compile_definitions(mujoco PRIVATE _GNU_SOURCE CCD_STATIC_DEFINE MUJOCO_DLL_EXPORTS -DMC_IMPLEM_ENABLE)
 if(MUJOCO_ENABLE_AVX_INTRINSICS)
