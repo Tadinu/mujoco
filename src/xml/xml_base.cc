@@ -25,7 +25,7 @@
 #include <mujoco/mjmodel.h>
 #include <mujoco/mjspec.h>
 #include <mujoco/mujoco.h>
-#include "user/user_objects.h"
+#include <mujoco/user/user_objects.h>
 #include "xml/xml_util.h"
 #include "tinyxml2.h"
 

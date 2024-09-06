@@ -24,8 +24,8 @@
 
 #include <mujoco/mjspec.h>
 #include <mujoco/mjtype.h>
-#include "user/user_composite.h"
-#include "user/user_flexcomp.h"
+#include <mujoco/user/user_composite.h>
+#include <mujoco/user/user_flexcomp.h>
 #include "xml/xml_util.h"
 
 // clang-format off

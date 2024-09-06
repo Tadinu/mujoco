@@ -20,7 +20,7 @@
 #include <type_traits>
 
 #include <mujoco/mujoco.h>
-#include "xml/xml.h"
+#include <mujoco/xml/xml.h>
 #include "xml/xml_util.h"
 
 namespace {
@@ -33,6 +33,8 @@ class GlobalModel {
 
   // writes XML to string
   std::string ToXML(const mjModel* m, char* error, int error_sz);
+
+  mjSpec* Spec() const { return spec_; }
 
  private:
   // using raw pointers as GlobalModel needs to be trivially destructible
@@ -75,6 +77,8 @@ GlobalModel& GetGlobalModel() {
 void SetGlobalXmlSpec(mjSpec* spec) {
   GetGlobalModel().Set(spec);
 }
+
+mjSpec* GetGlobalModelSpec() { return GetGlobalModel().Spec(); }
 
 std::string GetGlobalXmlSpec(const mjModel* m, char* error, int error_sz) {
   return GetGlobalModel().ToXML(m, error, error_sz);

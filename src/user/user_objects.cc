@@ -51,7 +51,7 @@
 #include <mujoco/mujoco.h>
 #include "cc/array_safety.h"
 #include "user/user_resource.h"
-#include "user/user_vfs.h"
+#include <mujoco/user/user_vfs.h>
 
 namespace {
 namespace mju = ::mujoco::util;
