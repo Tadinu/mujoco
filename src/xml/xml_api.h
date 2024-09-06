@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-
+MJAPI mjSpec* GetGlobalModelSpec();
 // parse XML file in MJCF or URDF format, compile it, return low-level model
 //  if vfs is not NULL, look up files in vfs before reading from disk
 //  error can be NULL; otherwise assumed to have size error_sz

@@ -14,6 +14,9 @@
 
 #include "xml/xml_api.h"
 
+#include <mujoco/mjmodel.h>
+#include <mujoco/mjspec.h>
+
 #include <array>
 #include <cstdio>
 #include <cstring>
@@ -23,11 +26,9 @@
 #include <sstream>
 #include <string>
 
-#include <mujoco/mjmodel.h>
 #include <mujoco/user/user_api.h>
 #include <mujoco/user/user_vfs.h>
 #include <mujoco/xml/xml.h>
-#include <mujoco/mjspec.h>
 #include "engine/engine_io.h"
 #include "user/user_resource.h"
 #include "xml/xml_global.h"
@@ -79,7 +80,6 @@ mjModel* mj_loadXML(const char* filename, const mjVFS* vfs, char* error, int err
   return m;
 }
 
-
 // update XML data structures with info from low-level model, save as MJCF
 //  returns 1 if successful, 0 otherwise
 //  error can be NULL; otherwise assumed to have size error_sz
@@ -103,7 +103,6 @@ int mj_saveLastXML(const char* filename, const mjModel* m, char* error, int erro
 
 int mj_saveUserModelXML(const char* filename, const mjModel* m, const void* user_model, char* error, int error_sz) {
   FILE *fp = stdout;
-
   if (filename != nullptr && filename[0] != '\0') {
     fp = fopen(filename, "w");
     if (!fp) {
@@ -128,7 +127,6 @@ int mj_saveUserModelXML(const char* filename, const mjModel* m, const void* user
 void mj_freeLastXML(void) {
   SetGlobalXmlSpec();
 }
-
 
 // print internal XML schema as plain text or HTML, with style-padding or &nbsp;
 int mj_printSchema(const char* filename, char* buffer, int buffer_sz, int flg_html, int flg_pad) {
@@ -155,7 +153,6 @@ int mj_printSchema(const char* filename, char* buffer, int buffer_sz, int flg_ht
   return str.str().size();
 }
 
-
 // load model from binary MJB resource
 mjModel* mj_loadModel(const char* filename, const mjVFS* vfs) {
   std::array<char, 1024> error;
@@ -178,18 +175,15 @@ mjModel* mj_loadModel(const char* filename, const mjVFS* vfs) {
   return m;
 }
 
-
 // parse spec from file
 mjSpec* mj_parseXML(const char* filename, const mjVFS* vfs, char* error, int error_sz) {
   return ParseXML(filename, vfs, error, error_sz);
 }
 
-
 // parse spec from string
 mjSpec* mj_parseXMLString(const char* xml, const mjVFS* vfs, char* error, int error_sz) {
   return ParseSpecFromString(xml, vfs, error, error_sz);
 }
-
 
 // save spec to XML file, return 0 on success, -1 otherwise
 int mj_saveXML(const mjSpec* s, const char* filename, char* error, int error_sz) {
@@ -207,8 +201,6 @@ int mj_saveXML(const mjSpec* s, const char* filename, char* error, int error_sz)
   }
   return 0;
 }
-
-
 // save spec to XML string, return 0 on success, -1 on failure
 // if length of the output buffer is too small, returns the required size
 int mj_saveXMLString(const mjSpec* s, char* xml, int xml_sz, char* error, int error_sz) {

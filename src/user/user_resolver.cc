@@ -24,7 +24,7 @@
 
 #include <mujoco/mjspec.h>
 #include <mujoco/mujoco.h>
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 
 namespace mujoco {
 namespace {
