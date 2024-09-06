@@ -95,6 +95,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang
       -Wno-int-in-bool-context
       -Wno-sign-compare
       -Wno-unknown-pragmas
+      -Wno-strict-prototypes
+      -Wno-deprecated-declarations
   )
   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # Set -Wimplicit-fallthrough=5 to only allow fallthrough annotation via __attribute__.

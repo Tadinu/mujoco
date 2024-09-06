@@ -8,11 +8,14 @@
 # Ubuntu 20.04: clang-10
 # Ubuntu 22.04: clang-11/12/13
 #sudo apt update
-#sudo apt install libc++-dev
-#sudo apt install libc++abi-dev
+#sudo apt install libc++-18-dev
+#sudo apt install libc++abi-18-dev
+#sudo apt install libomp-18-dev
 mkdir -p build
 pushd build
-cmake .. -DCMAKE_C_COMPILER:STRING=clang-15 -DCMAKE_CXX_COMPILER:STRING=clang++-15 -DMUJOCO_HARDEN:BOOL=ON \
+export CC=clang-18
+export CXX=clang++-18
+cmake .. -DMUJOCO_HARDEN:BOOL=ON \
 		 -DCMAKE_INSTALL_PREFIX=$HOME/1_MUJOCO/mujoco/release \
 		 -DCMAKE_CXX_FLAGS:STRING="-stdlib=libc++ -D_GLIBCXX_USE_CXX11_ABI=1" \
 		 -DCMAKE_EXE_LINKER_FLAGS:STRING="-Wl,--no-as-needed -stdlib=libc++" \

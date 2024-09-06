@@ -29,7 +29,7 @@
 #include <mujoco/user/user_model.h>
 #include <mujoco/user/user_objects.h>
 #include <mujoco/user/user_cache.h>
-#include "user/user_util.h"
+#include <mujoco/user/user_util.h>
 
 namespace {
 

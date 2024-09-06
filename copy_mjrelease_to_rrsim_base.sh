@@ -1,5 +1,5 @@
 DEST_RELEASE_DIR=${1:-"/home/tad/0_UE/UE5_FLAPTTER/Plugins/RRSimBase/ThirdParty/mujoco/release"}
-MUJOCO_VERSION=${2:-"3.2.7"}
+MUJOCO_VERSION=${2:-"3.2.8"}
 DEST_INCL_DIR="$DEST_RELEASE_DIR/include/"
 rm -rf $DEST_INCL_DIR
 mkdir -p $DEST_INCL_DIR
