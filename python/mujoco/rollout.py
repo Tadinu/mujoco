@@ -61,6 +61,7 @@ class Rollout:
       state: Optional[npt.ArrayLike] = None,
       sensordata: Optional[npt.ArrayLike] = None,
       chunk_size: Optional[int] = None,
+      kinematics_only: Optional[bool] = None
   ):
     """Rolls out open-loop trajectories from initial states, get subsequent state and sensor values.
 
@@ -119,6 +120,7 @@ class Rollout:
           state,
           sensordata,
           chunk_size,
+          kinematics_only
       )
       return state, sensordata
 
@@ -250,6 +252,7 @@ class Rollout:
         state,
         sensordata,
         chunk_size,
+        kinematics_only
     )
 
     # return outputs
@@ -287,6 +290,7 @@ def rollout(
     sensordata: Optional[npt.ArrayLike] = None,
     chunk_size: Optional[int] = None,
     persistent_pool: bool = False,
+    kinematics_only: bool = True
 ):
   """Rolls out open-loop trajectories from initial states, get subsequent states and sensor values.
 
@@ -357,6 +361,7 @@ def rollout(
         state=state,
         sensordata=sensordata,
         chunk_size=chunk_size,
+        kinematics_only=kinematics_only
     )
   finally:
     if not persistent_pool:
