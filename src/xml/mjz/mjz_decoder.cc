@@ -19,7 +19,8 @@
 #include <mujoco/mjplugin.h>
 #include <mujoco/mjspec.h>
 #include <mujoco/mujoco.h>
-#include "user/user_util.h"
+#include <mujoco/user/user_util.h>
+#include <mujoco/user/user_vfs.h>
 
 mjPLUGIN_LIB_INIT(mjz_decoder) {
   mjpDecoder decoder;

@@ -26,7 +26,7 @@
 
 #include <mujoco/mjmodel.h>
 #include <mujoco/mujoco.h>
-#include "user/user_util.h"
+#include <mujoco/user/user_util.h>
 
 namespace mujoco::user {
 

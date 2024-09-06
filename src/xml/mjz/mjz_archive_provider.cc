@@ -40,8 +40,8 @@
 
 #include <mujoco/mjplugin.h>
 #include <mujoco/mujoco.h>
+#include <mujoco/user/user_util.h>
 #include "user/user_resource.h"
-#include "user/user_util.h"
 
 namespace {
 

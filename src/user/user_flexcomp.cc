@@ -37,7 +37,6 @@
 #include "cc/array_safety.h"
 #include "engine/engine_crossplatform.h"
 #include "engine/engine_util_errmem.h"
-#include "user/user_api.h"
 #include "user/user_resource.h"
 
 namespace {

@@ -37,11 +37,11 @@
 #include <mujoco/user/user_model.h>
 #include <mujoco/user/user_objects.h>
 #include <mujoco/user/user_cache.h>
+#include <mujoco/user/user_util.h>
 #include "engine/engine_util_errmem.h"
-#include "user/user_flexcomp.h"
+#include <mujoco/user/user_flexcomp.h>
 #include "user/user_resolver.h"
 #include "user/user_resource.h"
-#include "user/user_util.h"
 #include "engine/engine_support.h"
 
 namespace {
