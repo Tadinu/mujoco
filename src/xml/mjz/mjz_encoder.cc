@@ -37,7 +37,7 @@
 #endif
 
 #include <mujoco/mujoco.h>
-#include "user/user_util.h"
+#include <mujoco/user/user_util.h>
 #include "tinyxml2.h"
 
 namespace {
