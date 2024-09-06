@@ -139,7 +139,6 @@ set(MUJOCO_HEADERS
     include/mujoco/mujoco.h
     include/mujoco/user/user_model.h
     include/mujoco/user/user_objects.h
-    include/mujoco/user/user_composite.h
     include/mujoco/user/user_flexcomp.h
     include/mujoco/user/user_util.h
     include/mujoco/user/user_vfs.h

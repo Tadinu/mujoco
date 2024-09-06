@@ -38,7 +38,7 @@
 #include "engine/engine_support.h"
 #include "engine/engine_util_errmem.h"
 #include "engine/engine_util_misc.h"
-#include "user/user_api.h"
+#include <mujoco/user/user_api.h>
 #include "xml/xml_base.h"
 #include "xml/xml_numeric_format.h"
 #include "xml/xml_util.h"

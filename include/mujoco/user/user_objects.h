@@ -429,6 +429,7 @@ struct MJAPI mjCGauge {
 // contains itself
 mjCGauge LowestContainerGauge(const std::vector<const mjCBase*>& elements);
 
+class mjCBase_ : public mjsElement {
  public:
   int         id;         // object id
   std::string name;       // object name
