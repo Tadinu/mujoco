@@ -73,7 +73,7 @@ Roll out batch of trajectories from initial states, get resulting states and sen
 void _unsafe_rollout(std::vector<const mjModel*>& m, mjData* d, int start_roll,
                      int end_roll, int nstep, unsigned int control_spec,
                      const mjtNum* state0, const mjtNum* warmstart0,
-                     const mjtNum* control, mjtNum* state, mjtNum* sensordata) {
+                     const mjtNum* control, mjtNum* state, mjtNum* sensordata, bool kinematics_only = true) {
   // sizes
   size_t nstate = static_cast<size_t>(mj_stateSize(m[0], mjSTATE_FULLPHYSICS));
   size_t ncontrol = static_cast<size_t>(mj_stateSize(m[0], control_spec));
@@ -161,7 +161,13 @@ void _unsafe_rollout(std::vector<const mjModel*>& m, mjData* d, int start_roll,
       }
 
       // step
-      mj_step(m[r], d);
+      if (kinematics_only) {
+	mj_kinematics(m[r], d);
+	mj_comPos(m[r], d);
+      }
+      else {
+        mj_step(m[r], d);
+      }
 
       // copy out new state
       if (state) {
@@ -181,7 +187,7 @@ void _unsafe_rollout_threaded(std::vector<const mjModel*>& m, std::vector<mjData
                               int nbatch, int nstep, unsigned int control_spec,
                               const mjtNum* state0, const mjtNum* warmstart0,
                               const mjtNum* control, mjtNum* state, mjtNum* sensordata,
-                              ThreadPool* pool, int chunk_size) {
+                              ThreadPool* pool, int chunk_size, bool kinematics_only = true) {
   int nfulljobs = nbatch / chunk_size;
   int chunk_remainder = nbatch % chunk_size;
   int njobs = (chunk_remainder > 0) ? nfulljobs + 1 : nfulljobs;
@@ -194,7 +200,7 @@ void _unsafe_rollout_threaded(std::vector<const mjModel*>& m, std::vector<mjData
     auto task = [=, &m, &d](void) {
       int id = pool->WorkerId();
       _unsafe_rollout(m, d[id], j*chunk_size, (j+1)*chunk_size,
-        nstep, control_spec, state0, warmstart0, control, state, sensordata);
+        nstep, control_spec, state0, warmstart0, control, state, sensordata, kinematics_only);
     };
     pool->Schedule(task);
   }
@@ -204,7 +210,7 @@ void _unsafe_rollout_threaded(std::vector<const mjModel*>& m, std::vector<mjData
     auto task = [=, &m, &d](void) {
       _unsafe_rollout(m, d[pool->WorkerId()], nfulljobs*chunk_size,
         nfulljobs*chunk_size+chunk_remainder,
-        nstep, control_spec, state0, warmstart0, control, state, sensordata);
+        nstep, control_spec, state0, warmstart0, control, state, sensordata, kinematics_only);
     };
     pool->Schedule(task);
   }
@@ -250,7 +256,7 @@ class Rollout {
                std::optional<const PyCArray> control,
                std::optional<const PyCArray> state,
                std::optional<const PyCArray> sensordata,
-               std::optional<int> chunk_size) {
+               std::optional<int> chunk_size, std::optional<bool> kinematics_only) {
     // get raw pointers
     int nbatch = state0.shape(0);
     std::vector<const raw::MjModel*> model_ptrs(nbatch);
@@ -314,11 +320,11 @@ class Rollout {
         InterceptMjErrors(_unsafe_rollout_threaded)(
             model_ptrs, data_ptrs, nbatch, nstep, control_spec, state0_ptr,
             warmstart0_ptr, control_ptr, state_ptr, sensordata_ptr,
-            this->pool_.get(), chunk_size_final);
+            this->pool_.get(), chunk_size_final, kinematics_only.value());
       } else {
         InterceptMjErrors(_unsafe_rollout)(
             model_ptrs, data_ptrs[0], 0, nbatch, nstep, control_spec,
-            state0_ptr, warmstart0_ptr, control_ptr, state_ptr, sensordata_ptr);
+            state0_ptr, warmstart0_ptr, control_ptr, state_ptr, sensordata_ptr, kinematics_only.value());
       }
     }
   }
@@ -352,6 +358,7 @@ PYBIND11_MODULE(_rollout, pymodule) {
         py::arg("state")      = py::none(),
         py::arg("sensordata") = py::none(),
         py::arg("chunk_size") = py::none(),
+        py::arg("kinematics_only") = py::none(),
         py::doc(rollout_doc));
 }
 
